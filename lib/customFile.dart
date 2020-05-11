@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'dart:ui';
+
+
+void main() => runApp(BannerApp());
 
 @pragma('vm:entry-point')
-void myOtherEntrypoint() => runApp(BannerApp());
+void sdBannerForTesting() => runApp(BannerApp());
 
 class BannerApp extends StatelessWidget {
   @override
