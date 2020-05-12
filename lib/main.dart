@@ -108,7 +108,7 @@ class BannerAppPage extends StatefulWidget {
 }
 
 class _BannerAppPageState extends State<BannerAppPage> {
-  String _bannerUrl = '';
+  String _bannerUrl = 'https://image.shutterstock.com/image-photo/panorama-beautiful-countryside-romania-sunny-260nw-1302294157.jpg';
   static const platfrom = const MethodChannel('com.adlok/info');
 
   _BannerAppPageState() {
@@ -134,7 +134,7 @@ class _BannerAppPageState extends State<BannerAppPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            _bannerUrl.isEmpty == false
+            _bannerUrl.length > 0
                 ? GestureDetector(
                   onTap: _imageTapped,
                     child: Card(
