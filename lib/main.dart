@@ -108,7 +108,7 @@ class BannerAppPage extends StatefulWidget {
 }
 
 class _BannerAppPageState extends State<BannerAppPage> {
-  String _bannerUrl = 'https://image.shutterstock.com/image-photo/panorama-beautiful-countryside-romania-sunny-260nw-1302294157.jpg';
+  String _bannerUrl = '';
   static const platfrom = const MethodChannel('com.adlok/info');
 
   _BannerAppPageState() {
