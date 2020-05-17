@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_in_sd/news/models/articles_model.dart';
 import '../models/sd_news_constant.dart';
 
 class SDArticleWidget extends StatelessWidget {
+  final DHArticle anArticle;
+  SDArticleWidget({@required this.anArticle});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -11,7 +14,7 @@ class SDArticleWidget extends StatelessWidget {
         children: <Widget>[
           Container(
             color: Colors.white,
-            height: 307,
+            height: 319,
             padding: EdgeInsets.symmetric(horizontal: 16),
             child: Card(
               elevation: 0,
@@ -23,11 +26,12 @@ class SDArticleWidget extends StatelessWidget {
                     height: 15.0,
                   ),
                   Text(
-                    "Limited community transmission has begun in India: Health ministry document",
+                    anArticle.articleTitle,
                     style: TextStyle(
                         color: textColor,
                         fontSize: 18.0,
-                        fontWeight: FontWeight.bold),
+                        fontWeight: FontWeight.bold,),
+                    maxLines: 2,
                     textAlign: TextAlign.left,
                   ),
                   SizedBox(
@@ -39,8 +43,10 @@ class SDArticleWidget extends StatelessWidget {
                     decoration: BoxDecoration(
                       image: DecorationImage(
                           image: NetworkImage(
-                              'https://assets-news-bcdn.dailyhunt.in/cmd/resize/375x100_50/fetchdata16/images/c2/37/e3/c237e3569eaf761024b157545e5ef376fa57ed67821374241076ab489627f3e9.jpg'),
-                          fit: BoxFit.fill),
+                            anArticle.images[0],
+                          ),
+                          fit: BoxFit.fitWidth
+                          ),
                       borderRadius: BorderRadius.circular(5),
                     ),
                   ),
@@ -53,7 +59,7 @@ class SDArticleWidget extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Text(
-                          "Hindustan Times | 22 mins ago",
+                          anArticle.source,
                         ),
                         Icon(
                           Icons.share,

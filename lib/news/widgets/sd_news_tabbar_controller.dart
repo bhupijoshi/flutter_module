@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_in_sd/news/widgets/sd_divider_widget.dart';
 import 'package:flutter_in_sd/news/widgets/sd_news_container.dart';
 import '../models/chanels.dart';
 import '../models/sd_news_constant.dart';
@@ -24,7 +25,10 @@ class SDNewsTabbarController extends StatelessWidget {
       length: sdChanels.length,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('News',style: TextStyle(color: textColor),),
+          title: Text(
+            'News',
+            style: TextStyle(color: textColor),
+          ),
           backgroundColor: Colors.white,
           bottom: TabBar(
             unselectedLabelColor: tabBarUnSelectedTextColor,
@@ -39,7 +43,9 @@ class SDNewsTabbarController extends StatelessWidget {
         ),
         body: TabBarView(
           children: sdChanels.map((aChanel) {
-            return SDNewsContainer();
+            return SDNewsContainer(
+              chanelName: 'headlines',
+            );
           }).toList(),
         ),
       ),
