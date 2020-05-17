@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_in_sd/news/widgets/sd_divider_widget.dart';
 import 'package:flutter_in_sd/news/widgets/sd_news_container.dart';
 import '../models/chanels.dart';
 import '../models/sd_news_constant.dart';

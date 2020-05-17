@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/services.dart';
 import 'package:flutter_in_sd/news/widgets/sd_news_tabbar_controller.dart';
 
+
 void main() => runApp(_widgetForRoute(window.defaultRouteName));
 
 Widget _widgetForRoute(String route) {
@@ -169,6 +170,7 @@ class _BannerAppPageState extends State<BannerAppPage> {
 class SDNewsApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    
     return MaterialApp(
       home: SDNewsPage(),
     );

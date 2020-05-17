@@ -35,6 +35,7 @@ class _SDNewsContainerState extends State<SDNewsContainer> {
       });
     });
   }
+  
 
   @override
   Widget build(BuildContext context) {
