@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:ui';
 import 'package:flutter/services.dart';
+import 'package:flutter_in_sd/news/widgets/sd_news_tabbar_controller.dart';
 
 void main() => runApp(_widgetForRoute(window.defaultRouteName));
 
@@ -13,7 +14,7 @@ Widget _widgetForRoute(String route) {
     case 'BannerApp':
       return BannerApp();
     default:
-      return MyApp();
+      return SDNewsApp();
   }
 }
 
@@ -124,8 +125,6 @@ class _BannerAppPageState extends State<BannerAppPage> {
     platfrom.invokeMethod('imageTapped');
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -136,7 +135,7 @@ class _BannerAppPageState extends State<BannerAppPage> {
           children: <Widget>[
             _bannerUrl.length > 0
                 ? GestureDetector(
-                  onTap: _imageTapped,
+                    onTap: _imageTapped,
                     child: Card(
                       elevation: 10,
                       color: Colors.blue,
@@ -164,5 +163,21 @@ class _BannerAppPageState extends State<BannerAppPage> {
       print(e);
     }
     return value;
+  }
+}
+
+class SDNewsApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: SDNewsPage(),
+    );
+  }
+}
+
+class SDNewsPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return SDNewsTabbarController();
   }
 }
