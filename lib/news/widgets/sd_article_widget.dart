@@ -8,8 +8,8 @@ class SDArticleWidget extends StatelessWidget {
   final DHArticle anArticle;
   SDArticleWidget({@required this.anArticle});
 
-  void openNewsDetailPage() {
-
+  void _openNewsDetailPage(BuildContext context) {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => SDNewsDetailPage(dhArticle: anArticle)));
   }
 
   @override
@@ -20,9 +20,7 @@ class SDArticleWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           GestureDetector(
-            onTap: (() {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => SDNewsDetailPage(dhArticle: anArticle)));
-            }),
+            onTap: () => _openNewsDetailPage(context),
             child: Container(
               color: Colors.white,
               height: 319,
