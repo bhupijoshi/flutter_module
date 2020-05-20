@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:ui';
 import 'package:flutter/services.dart';
-import 'package:flutter_in_sd/news/widgets/sd_news_tabbar_controller.dart';
+import './news/widgets/sd_news_tabbar_controller.dart';
+import './sd_dynamic_wdgets/widgets/sd_dynamic_widget_page.dart';
 
 
 void main() => runApp(_widgetForRoute(window.defaultRouteName));
@@ -15,7 +16,7 @@ Widget _widgetForRoute(String route) {
     case 'BannerApp':
       return BannerApp();
     default:
-      return SDNewsApp();
+      return SDDynamicWidgetApp();
   }
 }
 
@@ -181,5 +182,16 @@ class SDNewsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SDNewsTabbarController();
+  }
+}
+
+
+// Dynamic widget page
+class SDDynamicWidgetApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: SDDynamicWidgetPage(),
+    );
   }
 }
