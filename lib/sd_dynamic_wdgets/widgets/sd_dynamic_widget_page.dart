@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import './pages/sd_demo_page.dart';
+import 'package:http/http.dart' as http;
 
 class SDDynamicWidgetPage extends StatefulWidget {
   @override
@@ -22,7 +23,7 @@ class _SDDynamicWidgetPageState extends State<SDDynamicWidgetPage> {
 
 ''';
 
-@override
+  @override
   void initState() {
     super.initState();
     _widgetsJson().then( (String json){
@@ -30,7 +31,15 @@ class _SDDynamicWidgetPageState extends State<SDDynamicWidgetPage> {
          _widgetJson = json;
       });
     });
+    // http
+    //     .get('http://192.168.1.3:8888/snapdeal/render/dynamic_widget.json')
+    //     .then((response) {
+    //   setState(() {
+    //     _widgetJson = response.body;
+    //   });
+    // });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,7 +52,7 @@ class _SDDynamicWidgetPageState extends State<SDDynamicWidgetPage> {
     );
   }
 
-  Future<String> _widgetsJson() async{
+  Future<String> _widgetsJson() async {
     return await rootBundle.loadString('json/dynamic_widget.json');
   }
 }
