@@ -15,6 +15,8 @@ Widget _widgetForRoute(String route) {
       return SDSample();
     case 'BannerApp':
       return BannerApp();
+    case 'SDNewsApp':
+      return SDNewsApp();
     default:
       return SDDynamicWidgetApp();
   }
