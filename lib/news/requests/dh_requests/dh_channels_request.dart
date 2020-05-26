@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:flutter_in_sd/news/models/dh_channels.dart';
+import '../../models/dh_channels.dart';
 import 'dh_netwrok_request.dart';
 
 class DHChannelsRequest {

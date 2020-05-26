@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_in_sd/news/models/articles_model.dart';
-import 'package:flutter_in_sd/news/models/dh_channels.dart';
-import 'package:flutter_in_sd/news/widgets/sd_divider_widget.dart';
+import '../models/articles_model.dart';
+import '../models/dh_channels.dart';
+import './sd_divider_widget.dart';
 import './sd_article_widget.dart';
 import 'dart:convert';
 import 'dart:async';

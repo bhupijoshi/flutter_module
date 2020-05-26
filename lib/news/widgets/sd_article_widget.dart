@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
-import 'package:flutter_in_sd/news/models/articles_model.dart';
-import 'package:flutter_in_sd/news/widgets/sd_news_detail_page.dart';
+import '../models/articles_model.dart';
+import './sd_news_detail_page.dart';
 import '../models/sd_news_constant.dart';
 
 class SDArticleWidget extends StatelessWidget {

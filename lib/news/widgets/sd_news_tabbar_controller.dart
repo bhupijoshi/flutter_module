@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_in_sd/news/models/dh_channels.dart';
-import 'package:flutter_in_sd/news/requests/dh_requests/dh_channels_request.dart';
-import 'package:flutter_in_sd/news/widgets/sd_news_container.dart';
+import '../models/dh_channels.dart';
+import '../requests/dh_requests/dh_channels_request.dart';
+import './sd_news_container.dart';
 import '../models/sd_news_constant.dart';
 
 class SDNewsTabbarController extends StatefulWidget {
