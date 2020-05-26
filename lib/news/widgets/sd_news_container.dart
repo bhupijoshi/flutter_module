@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_in_sd/news/models/articles_model.dart';
+import 'package:flutter_in_sd/news/models/dh_channels.dart';
 import 'package:flutter_in_sd/news/widgets/sd_divider_widget.dart';
 import './sd_article_widget.dart';
 import 'dart:convert';
@@ -7,8 +8,8 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 
 class SDNewsContainer extends StatefulWidget {
-  final String chanelName;
-  SDNewsContainer({@required this.chanelName});
+  final DHChannel aChannel;
+  SDNewsContainer({@required this.aChannel});
   @override
   _SDNewsContainerState createState() => _SDNewsContainerState();
 }

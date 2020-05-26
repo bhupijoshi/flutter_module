@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import './pages/sd_demo_page.dart';
-import 'package:http/http.dart' as http;
 
 class SDDynamicWidgetPage extends StatefulWidget {
   @override
