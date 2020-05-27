@@ -2,12 +2,15 @@ import 'dart:convert';
 import '../../models/articles_model.dart';
 import './dh_netwrok_request.dart';
 
-class DHItemsRequest{
-
-  Future<DHArticles> fetchDhNewsArticles(String channelId) async {
-    String serviceName = '/api/v2/syndication/items?';
-    String params = 'pfm=96&cid=$channelId&';
-    final response = await DHNetworkRequest(serviceName: serviceName,queryParams: params).preformRequest();
+class DHItemsRequest {
+  Future<DHArticles> fetchDhNewsArticles(String channelContentUrl) async {
+    List<String> components = channelContentUrl.split('?');
+    String url = components[0] + '?';
+    String params = components.length > 1 ? components[1] : "";
+    final response = await DHNetworkRequest(
+      queryParams: params,
+      requestUrl: url,
+    ).preformRequest();
     if (response.statusCode == 200) {
       DHArticles dhArticles;
       final jsonResponse = jsonDecode(response.body);
@@ -20,4 +23,3 @@ class DHItemsRequest{
     }
   }
 }
-

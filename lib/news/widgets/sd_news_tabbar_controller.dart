@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../models/dh_channels.dart';
 import '../requests/dh_requests/dh_channels_request.dart';
 import './sd_news_container.dart';
-import '../models/sd_news_constant.dart';
+import '../models/dh_news_constant.dart';
 
 class SDNewsTabbarController extends StatefulWidget {
   @override

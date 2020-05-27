@@ -83,6 +83,9 @@ class DHArticle {
   }
 
   static List<String> parseImages(imageJson) {
+    if (imageJson == null) {
+        return [];
+    }
     List<String> images = List<String>.from(imageJson);
     List<String> imageUrls = [];
      images.forEach((imageUrl){

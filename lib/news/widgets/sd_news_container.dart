@@ -43,7 +43,7 @@ class _SDNewsContainerState extends State<SDNewsContainer>
 
   void _fetchArticles() {
     DHItemsRequest()
-        .fetchDhNewsArticles(widget.aChannel.channelId)
+        .fetchDhNewsArticles(widget.aChannel.contentUrl)
         .then((DHArticles dhArticles) {
       if (dhArticles != null && dhArticles.articleCount > 0) {
         if (this.mounted) {

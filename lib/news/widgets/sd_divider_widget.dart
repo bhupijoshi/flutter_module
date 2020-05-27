@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../models/sd_news_constant.dart';
+import '../models/dh_news_constant.dart';
 
 class SDDividerWidget extends StatelessWidget {
   @override

@@ -3,24 +3,20 @@ import 'dart:collection';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-
+import '../../models/dh_news_constant.dart';
 class DHNetworkRequest {
-  final String _partnerCode = 'snapdeal1';
-  final String _apiKeyValue = 'grBY9UjGjFgpXpFyOnuwNPMPXmxp+y5/HjxMrgFixu8=';
-  final String _secretkey = 'xurDYa6wyY+zw3NzBh/YfQ==';
   final String _httpMethodGet = 'GET';
-  final String _baseUrl = 'http://feed.dailyhunt.in';
-  String serviceName = '';
   String queryParams = '';
+  String requestUrl = '';
   DHNetworkRequest({
-    @required this.serviceName,
-    this.queryParams,
+    @required this.queryParams,
+    @required this.requestUrl,
   });
   Future<http.Response> preformRequest() async {
     
     //add default query params. In query parameter always add the "ts" query parameter
     queryParams = queryParams +
-        "langCode=en&partner=$_partnerCode&puid=test123&ts=" +
+        "&ts=" +
         DateTime.now().millisecondsSinceEpoch.toString();
 
     // Generate the signature base string
@@ -30,11 +26,11 @@ class DHNetworkRequest {
     final signature = _calculateRFC2104HMAC(signatureBase);
 
     // Form the url & pass the API_KEY and the Signature generated in the header
-    String httpUrl = _baseUrl + serviceName + queryParams;
+    requestUrl = requestUrl + queryParams;
     Map<String, String> headers = Map();
-    headers['Authorization'] = 'key=' + _apiKeyValue;
+    headers['Authorization'] = 'key=' + apiKeyValue;
     headers['Signature'] = signature;
-    final response = await http.get(httpUrl, headers: headers);
+    final response = await http.get(requestUrl, headers: headers);
     return response;
   }
 
@@ -95,7 +91,7 @@ class DHNetworkRequest {
 
 // calculate calculateRFC2104HMAC
   String _calculateRFC2104HMAC(String baseSign) {
-    var key = utf8.encode(_secretkey);
+    var key = utf8.encode(secretKey);
     var data = utf8.encode(baseSign);
     var hmacSha1 = new Hmac(sha1, key);
     Digest sha1Result = hmacSha1.convert(data);
