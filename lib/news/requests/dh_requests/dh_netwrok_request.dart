@@ -4,23 +4,23 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import '../../models/dh_news_constant.dart';
+
 class DHNetworkRequest {
-  final String _httpMethodGet = 'GET';
+  String httpMethod = '';
   String queryParams = '';
+  Map<String, Object> postBody;
   String requestUrl = '';
   DHNetworkRequest({
     @required this.queryParams,
     @required this.requestUrl,
+    this.httpMethod = 'GET',
   });
   Future<http.Response> preformRequest() async {
-    
     //add default query params. In query parameter always add the "ts" query parameter
-    queryParams = queryParams +
-        "&ts=" +
-        DateTime.now().millisecondsSinceEpoch.toString();
-
+    queryParams =
+        queryParams + "&ts=" + DateTime.now().millisecondsSinceEpoch.toString();
     // Generate the signature base string
-    String signatureBase = _generateSignatureBase(_httpMethodGet, queryParams);
+    String signatureBase = _generateSignatureBase(httpMethod, queryParams);
 
     // Generate the signature i.e. Message Authentication Code using HMAC
     final signature = _calculateRFC2104HMAC(signatureBase);
@@ -30,8 +30,14 @@ class DHNetworkRequest {
     Map<String, String> headers = Map();
     headers['Authorization'] = 'key=' + apiKeyValue;
     headers['Signature'] = signature;
-    final response = await http.get(requestUrl, headers: headers);
-    return response;
+    if (httpMethod == "POST") {
+      final postResponse =
+          await http.post(requestUrl, headers: headers, body: postBody);
+          return postResponse;
+    } else {
+      final getResponse = await http.get(requestUrl, headers: headers);
+      return getResponse;
+    }
   }
 
 //Generate signature
@@ -44,7 +50,7 @@ class DHNetworkRequest {
 
       // Sort all the request query parameters lexicographically, sorted on encoded key
       SplayTreeMap mapTree = SplayTreeMap();
-      queryParams.forEach((key, value){
+      queryParams.forEach((key, value) {
         mapTree[Uri.encodeFull(key)] = Uri.encodeFull(value);
       });
       // final sortedParams = SplayTreeMap.from(queryParams);
@@ -52,7 +58,7 @@ class DHNetworkRequest {
       signatureBaseBuffer = signatureBaseBuffer + _formatAsUrl(mapTree);
     }
     // Append the UPPERCASE(http method)
-    signatureBaseBuffer = signatureBaseBuffer + _httpMethodGet.toUpperCase();
+    signatureBaseBuffer = signatureBaseBuffer + httpMethod.toUpperCase();
     return signatureBaseBuffer;
   }
 
@@ -66,9 +72,7 @@ class DHNetworkRequest {
     for (var param in params) {
       final List<Object> keyValue = param.toString().split('=');
       final key = keyValue[0];
-      final value = keyValue.length == 2
-          ? keyValue[1]
-          : '';
+      final value = keyValue.length == 2 ? keyValue[1] : '';
       paramsMap[key] = value;
     }
     return paramsMap;
@@ -96,6 +100,6 @@ class DHNetworkRequest {
     var hmacSha1 = new Hmac(sha1, key);
     Digest sha1Result = hmacSha1.convert(data);
     String base64Mac = base64Encode(sha1Result.bytes);
-    return base64Mac; 
+    return base64Mac;
   }
 }

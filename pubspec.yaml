@@ -23,7 +23,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  webview_flutter: ^0.3.21
+  webview_flutter: ^0.3.22+1
   dynamic_widget: ^2.0.2
   http: ^0.12.1
 
