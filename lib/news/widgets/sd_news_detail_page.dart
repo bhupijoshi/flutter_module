@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_in_sd/news/models/articles_model.dart';
+import '../models/articles_model.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class SDNewsDetailPage extends StatelessWidget {

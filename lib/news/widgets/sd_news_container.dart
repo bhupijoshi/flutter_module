@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_in_sd/news/requests/dh_requests/dh_items_request.dart';
 import '../models/articles_model.dart';
 import '../models/dh_channels.dart';
 import './sd_divider_widget.dart';
@@ -14,7 +15,9 @@ class SDNewsContainer extends StatefulWidget {
   _SDNewsContainerState createState() => _SDNewsContainerState();
 }
 
-class _SDNewsContainerState extends State<SDNewsContainer> {
+class _SDNewsContainerState extends State<SDNewsContainer>
+    with AutomaticKeepAliveClientMixin<SDNewsContainer> {
+  String _loadingMessage = "Laoding content...";
   List<DHArticle> _listOfArticles = [];
   Future<String> loadArticlesFromAssets() async {
     return await rootBundle.loadString('json/headlines.json');
@@ -30,36 +33,55 @@ class _SDNewsContainerState extends State<SDNewsContainer> {
   @override
   void initState() {
     super.initState();
-    parseArticlesJson().then((DHArticles dhArticles) {
-      setState(() {
-        _listOfArticles = dhArticles.articles;
-      });
+    // parseArticlesJson().then((DHArticles dhArticles) {
+    //   setState(() {
+    //     _listOfArticles = dhArticles.articles;
+    //   });
+    // });
+    _fetchArticles();
+  }
+
+  void _fetchArticles() {
+    DHItemsRequest()
+        .fetchDhNewsArticles(widget.aChannel.channelId)
+        .then((DHArticles dhArticles) {
+      if (dhArticles != null && dhArticles.articleCount > 0) {
+        if (this.mounted) {
+          setState(() {
+            _listOfArticles.addAll(dhArticles.articles);
+          });
+        }
+      }else{
+        _loadingMessage = "No content available.";
+      }
     });
   }
-  
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: _listOfArticles.map((anArticle) {
-          return Column(
-            children: <Widget>[
-              SDArticleWidget(
-            anArticle: anArticle,
-          ),
-          SDDividerWidget(),
-            ],
-          );
-        }).toList(),
-      ),
-    );
+    super.build(context);
+    return _listOfArticles.length > 0
+        ? SingleChildScrollView(
+            child: Column(
+              children: _listOfArticles.map((anArticle) {
+                return Column(
+                  children: <Widget>[
+                    SDArticleWidget(
+                      anArticle: anArticle,
+                    ),
+                    SDDividerWidget(),
+                  ],
+                );
+              }).toList(),
+            ),
+          )
+        : Center(
+          child: Text(
+              _loadingMessage,
+            ),
+        );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
-// <Widget>[
-//           SDArticleWidget(),
-//           SDDividerWidget(),
-//           SDArticleWidget(),
-//           SDDividerWidget(),
-//           SDArticleWidget(),
-//         ],

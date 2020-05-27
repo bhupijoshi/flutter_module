@@ -84,6 +84,13 @@ class DHArticle {
 
   static List<String> parseImages(imageJson) {
     List<String> images = List<String>.from(imageJson);
-    return images;
+    List<String> imageUrls = [];
+     images.forEach((imageUrl){
+      imageUrl = imageUrl.replaceAll('{CMD}', 'resize');
+      imageUrl = imageUrl.replaceAll('{W}x{H}_{Q}', '375x100_50');
+      imageUrl = imageUrl.replaceAll('{EXT}', 'png');
+      imageUrls.add(imageUrl);
+    });
+    return imageUrls;
   }
 }

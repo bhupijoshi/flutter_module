@@ -35,7 +35,6 @@ class DHNetworkRequest {
     headers['Authorization'] = 'key=' + _apiKeyValue;
     headers['Signature'] = signature;
     final response = await http.get(httpUrl, headers: headers);
-    print(response.body);
     return response;
   }
 
