@@ -10,6 +10,6 @@ Color seperationColor = Color(0xffE0E0E0);
 final String partnerCode = 'snapdeal1';
 final String apiKeyValue = 'grBY9UjGjFgpXpFyOnuwNPMPXmxp+y5/HjxMrgFixu8=';
 final String secretKey = 'xurDYa6wyY+zw3NzBh/YfQ==';
-final String baseUrl = 'http://feed.dailyhunt.in';
+final String baseUrl = 'http://feed.dailyhunt.in/api/v2/syndication';
 
 

@@ -5,7 +5,7 @@ import '../../models/dh_news_constant.dart';
 
 class DHChannelsRequest {
   Future <DHChannels> fetchAvailableChannels() async {
-    String serviceName = '/api/v2/syndication/channels?';
+    String serviceName = '/channels?';
     String params = 'pfm=96&langCode=en&partner=$partnerCode&puid=test123';
     final response = await DHNetworkRequest(queryParams: params,requestUrl: baseUrl+serviceName).preformRequest();
     if (response.statusCode == 200) {

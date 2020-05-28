@@ -7,13 +7,12 @@
  */
 import 'package:flutter/material.dart';
 import 'package:flutter_in_sd/news/requests/dh_requests/dh_items_request.dart';
+import 'package:flutter_in_sd/news/requests/dh_requests/dh_netwrok_request.dart';
 import '../models/articles_model.dart';
 import '../models/dh_channels.dart';
 import './dh_divider_widget.dart';
 import './dh_article_widget.dart';
-import 'dart:convert';
-import 'dart:async';
-import 'package:flutter/services.dart';
+import '../models/dh_news_constant.dart';
 
 class DHNewsContainer extends StatefulWidget {
   final DHChannel aChannel;
@@ -26,36 +25,25 @@ class _DHNewsContainerState extends State<DHNewsContainer>
     with AutomaticKeepAliveClientMixin<DHNewsContainer> {
   String _loadingMessage = "Laoding content...";
   List<DHArticle> _listOfArticles = [];
-  Future<String> loadArticlesFromAssets() async {
-    return await rootBundle.loadString('json/headlines.json');
-  }
-
-  Future<DHArticles> parseArticlesJson() async {
-    String jsonString = await loadArticlesFromAssets();
-    final jsonResponse = json.decode(jsonString);
-    DHArticles dhArticles = DHArticles.fromJson(jsonResponse['data']);
-    return dhArticles;
-  }
 
   @override
   void initState() {
     super.initState();
-    // parseArticlesJson().then((DHArticles dhArticles) {
-    //   setState(() {
-    //     _listOfArticles = dhArticles.articles;
-    //   });
-    // });
     _listOfArticles = [];
-    _fetchArticles();
+    if (widget.aChannel != null) {
+      _fetchArticles(widget.aChannel.contentUrl);
+    }
   }
 
-  void _fetchArticles() {
+// Get Articles from DH Server
+  void _fetchArticles(String contentUrl) {
     DHItemsRequest()
-        .fetchDhNewsArticles(widget.aChannel.contentUrl)
+        .fetchDhNewsArticles(contentUrl)
         .then((DHArticles dhArticles) {
       setState(() {
         if (dhArticles != null && dhArticles.articleCount > 0) {
           _listOfArticles.addAll(dhArticles.articles);
+          _sendTrackData(dhArticles);
         } else {
           _loadingMessage = "No content available.";
         }
@@ -89,4 +77,33 @@ class _DHNewsContainerState extends State<DHNewsContainer>
 
   @override
   bool get wantKeepAlive => true;
+
+  // send Track data to DH
+  void _sendTrackData(DHArticles dhArticles) {
+    List<Map<String, Object>> trackData = dhArticles.articles.map((article) {
+      Map<String, Object> info = Map();
+      info['trackData'] = article.articleTrackData;
+      info['id'] = article.articleId;
+      return info;
+    }).toList();
+    Map<String, Object> trackDataMap = Map();
+    trackDataMap['viewedDate'] =
+        DateTime.now().millisecondsSinceEpoch.toString();
+    trackDataMap['stories'] = trackData;
+    print(trackDataMap);
+    String params = 'partner=$partnerCode&puid=test123';
+    String serviceName = '/tracking?';
+    var request = DHNetworkRequest(
+      queryParams: params,
+      requestUrl: baseUrl + serviceName,
+      httpMethod: 'POST',
+    );
+    request.postBody = trackDataMap;
+    request.preformRequest().then((response){
+      print(response.body);
+    });
+  }
+
 }
+
+

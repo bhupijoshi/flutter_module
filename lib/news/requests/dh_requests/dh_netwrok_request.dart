@@ -31,9 +31,13 @@ class DHNetworkRequest {
     headers['Authorization'] = 'key=' + apiKeyValue;
     headers['Signature'] = signature;
     if (httpMethod == "POST") {
-      final postResponse =
-          await http.post(requestUrl, headers: headers, body: postBody);
-          return postResponse;
+      headers['Content-Type'] = 'application/json';
+      final postResponse = await http.post(
+        requestUrl,
+        headers: headers,
+        body: json.encode(postBody),
+      );
+      return postResponse;
     } else {
       final getResponse = await http.get(requestUrl, headers: headers);
       return getResponse;
@@ -106,5 +110,5 @@ class DHNetworkRequest {
   Future<http.Response> performComScoreRequest() async {
     final comScoreResponse = await http.get(requestUrl);
     return comScoreResponse;
-  } 
+  }
 }
