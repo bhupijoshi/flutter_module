@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 /**
  * @author Bhoopi
  * @email bhoopendra.joshi@snapdeal.com
@@ -23,15 +24,23 @@ class DHNewsContainer extends StatefulWidget {
 class _DHNewsContainerState extends State<DHNewsContainer>
     with AutomaticKeepAliveClientMixin<DHNewsContainer> {
   String _loadingMessage = "Laoding content...";
+  ScrollController _scrollController = ScrollController();
   List<DHArticle> _listOfArticles = [];
+  String _urlForContent = '';
 
   @override
   void initState() {
-    super.initState();
     _listOfArticles = [];
     if (widget.aChannel != null) {
       _fetchArticles(widget.aChannel.contentUrl);
     }
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+        _fetchArticles(_urlForContent);
+      }
+    });
+    super.initState();
   }
 
 // Get Articles from DH Server
@@ -41,8 +50,10 @@ class _DHNewsContainerState extends State<DHNewsContainer>
         .then((DHArticles dhArticles) {
       setState(() {
         if (dhArticles != null && dhArticles.articleCount > 0) {
+          _urlForContent = dhArticles.nextPageUrl;
           _listOfArticles.addAll(dhArticles.articles);
-          DHArticleTrackingRequest(articleList: dhArticles.articles).sendTrackData();
+          DHArticleTrackingRequest(articleList: dhArticles.articles)
+              .sendTrackData();
         } else {
           _loadingMessage = "No content available.";
         }
@@ -55,17 +66,27 @@ class _DHNewsContainerState extends State<DHNewsContainer>
     super.build(context);
     return _listOfArticles.length > 0
         ? ListView.builder(
+            controller: _scrollController,
             itemBuilder: (context, index) {
-              return Column(
-                children: <Widget>[
-                  DHArticleWidget(
-                    anArticle: _listOfArticles[index],
-                  ),
-                  DHDividerWidget(),
-                ],
-              );
+              return index == _listOfArticles.length
+                  ? Column(
+                      children: <Widget>[
+                        SizedBox(
+                          height: 10,
+                        ),
+                        CupertinoActivityIndicator(),
+                      ],
+                    )
+                  : Column(
+                      children: <Widget>[
+                        DHArticleWidget(
+                          anArticle: _listOfArticles[index],
+                        ),
+                        DHDividerWidget(),
+                      ],
+                    );
             },
-            itemCount: _listOfArticles.length,
+            itemCount: _listOfArticles.length + 1,
           )
         : Center(
             child: Text(
@@ -76,8 +97,4 @@ class _DHNewsContainerState extends State<DHNewsContainer>
 
   @override
   bool get wantKeepAlive => true;
-
-
 }
-
-
