@@ -3,27 +3,27 @@
  * @email bhoopendra.joshi@snapdeal.com
  * @create date 2020-05-28 12:02:02
  * @modify date 2020-05-28 12:02:02
- * @desc [description]
+ * @desc [News list view]
  */
 import 'package:flutter/material.dart';
 import 'package:flutter_in_sd/news/requests/dh_requests/dh_items_request.dart';
 import '../models/articles_model.dart';
 import '../models/dh_channels.dart';
-import './sd_divider_widget.dart';
-import './sd_article_widget.dart';
+import './dh_divider_widget.dart';
+import './dh_article_widget.dart';
 import 'dart:convert';
 import 'dart:async';
 import 'package:flutter/services.dart';
 
-class SDNewsContainer extends StatefulWidget {
+class DHNewsContainer extends StatefulWidget {
   final DHChannel aChannel;
-  SDNewsContainer({@required this.aChannel});
+  DHNewsContainer({@required this.aChannel});
   @override
-  _SDNewsContainerState createState() => _SDNewsContainerState();
+  _DHNewsContainerState createState() => _DHNewsContainerState();
 }
 
-class _SDNewsContainerState extends State<SDNewsContainer>
-    with AutomaticKeepAliveClientMixin<SDNewsContainer> {
+class _DHNewsContainerState extends State<DHNewsContainer>
+    with AutomaticKeepAliveClientMixin<DHNewsContainer> {
   String _loadingMessage = "Laoding content...";
   List<DHArticle> _listOfArticles = [];
   Future<String> loadArticlesFromAssets() async {
@@ -71,10 +71,10 @@ class _SDNewsContainerState extends State<SDNewsContainer>
             itemBuilder: (context, index) {
               return Column(
                 children: <Widget>[
-                  SDArticleWidget(
+                  DHArticleWidget(
                     anArticle: _listOfArticles[index],
                   ),
-                  SDDividerWidget(),
+                  DHDividerWidget(),
                 ],
               );
             },

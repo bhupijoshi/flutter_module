@@ -8,15 +8,15 @@
 
 import 'package:flutter/material.dart';
 import '../models/articles_model.dart';
-import './sd_news_detail_page.dart';
+import './dh_news_detail_page.dart';
 import '../models/dh_news_constant.dart';
 
-class SDArticleWidget extends StatelessWidget {
+class DHArticleWidget extends StatelessWidget {
   final DHArticle anArticle;
-  SDArticleWidget({@required this.anArticle});
+  DHArticleWidget({@required this.anArticle});
 
   void _openNewsDetailPage(BuildContext context) {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => SDNewsDetailPage(dhArticle: anArticle)));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => DHNewsDetailPage(dhArticle: anArticle)));
   }
 
   @override

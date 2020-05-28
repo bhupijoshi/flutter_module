@@ -1,15 +1,22 @@
+/**
+ * @author Bhoopi
+ * @email bhoopendra.joshi@snapdeal.com
+ * @create date 2020-05-28 13:09:53
+ * @modify date 2020-05-28 13:09:53
+ * @desc [Tab controller]
+ */
 import 'package:flutter/material.dart';
 import '../models/dh_channels.dart';
 import '../requests/dh_requests/dh_channels_request.dart';
-import './sd_news_container.dart';
+import './dh_news_container.dart';
 import '../models/dh_news_constant.dart';
 
-class SDNewsTabbarController extends StatefulWidget {
+class DHNewsTabbarController extends StatefulWidget {
   @override
-  _SDNewsTabbarControllerState createState() => _SDNewsTabbarControllerState();
+  _DHNewsTabbarControllerState createState() => _DHNewsTabbarControllerState();
 }
 
-class _SDNewsTabbarControllerState extends State<SDNewsTabbarController> {
+class _DHNewsTabbarControllerState extends State<DHNewsTabbarController> {
   DHChannels _channels;
 
   @override
@@ -52,7 +59,7 @@ class _SDNewsTabbarControllerState extends State<SDNewsTabbarController> {
               ),
               body: TabBarView(
                 children: _channels.allChannels.map((aChanel) {
-                  return SDNewsContainer(
+                  return DHNewsContainer(
                     aChannel: aChanel,
                   );
                 }).toList(),

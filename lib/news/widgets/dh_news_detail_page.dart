@@ -1,10 +1,17 @@
+/**
+ * @author Bhoopi
+ * @email bhoopendra.joshi@snapdeal.com
+ * @create date 2020-05-28 13:09:45
+ * @modify date 2020-05-28 13:09:45
+ * @desc [Detail page for news]
+ */
 import 'package:flutter/material.dart';
 import '../models/articles_model.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class SDNewsDetailPage extends StatelessWidget {
+class DHNewsDetailPage extends StatelessWidget {
   final DHArticle dhArticle;
-  SDNewsDetailPage({@required this.dhArticle});
+  DHNewsDetailPage({@required this.dhArticle});
 
   @override
   Widget build(BuildContext context) {
