@@ -8,7 +8,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_in_sd/news/requests/dh_requests/dh_article_tracking_request.dart';
 import '../requests/dh_requests/dh_items_request.dart';
-import '../models/articles_model.dart';
+import '../models/dh_articles_model.dart';
 import '../models/dh_channels.dart';
 import './dh_divider_widget.dart';
 import './dh_article_widget.dart';

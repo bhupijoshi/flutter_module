@@ -1,5 +1,5 @@
 import 'dart:convert';
-import '../../models/articles_model.dart';
+import '../../models/dh_articles_model.dart';
 import './dh_netwrok_request.dart';
 
 class DHItemsRequest {

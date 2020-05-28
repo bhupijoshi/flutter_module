@@ -6,7 +6,7 @@
  * @desc [Detail page for news]
  */
 import 'package:flutter/material.dart';
-import '../models/articles_model.dart';
+import '../models/dh_articles_model.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class DHNewsDetailPage extends StatelessWidget {

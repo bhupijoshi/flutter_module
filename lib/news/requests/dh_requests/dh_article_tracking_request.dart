@@ -8,7 +8,7 @@
 
 import 'package:flutter/material.dart';
 import '../../models/dh_news_constant.dart';
-import '../../models/articles_model.dart';
+import '../../models/dh_articles_model.dart';
 import '../../requests/dh_requests/dh_netwrok_request.dart';
 class DHArticleTrackingRequest {
   final List<DHArticle> articleList;

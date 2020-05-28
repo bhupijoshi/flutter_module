@@ -7,7 +7,7 @@
  */
 
 import 'package:flutter/material.dart';
-import '../models/articles_model.dart';
+import '../models/dh_articles_model.dart';
 import './dh_news_detail_page.dart';
 import '../models/dh_news_constant.dart';
 
