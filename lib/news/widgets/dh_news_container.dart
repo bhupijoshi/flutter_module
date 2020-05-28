@@ -6,13 +6,12 @@
  * @desc [News list view]
  */
 import 'package:flutter/material.dart';
-import 'package:flutter_in_sd/news/requests/dh_requests/dh_items_request.dart';
-import 'package:flutter_in_sd/news/requests/dh_requests/dh_netwrok_request.dart';
+import 'package:flutter_in_sd/news/requests/dh_requests/dh_article_tracking_request.dart';
+import '../requests/dh_requests/dh_items_request.dart';
 import '../models/articles_model.dart';
 import '../models/dh_channels.dart';
 import './dh_divider_widget.dart';
 import './dh_article_widget.dart';
-import '../models/dh_news_constant.dart';
 
 class DHNewsContainer extends StatefulWidget {
   final DHChannel aChannel;
@@ -43,7 +42,7 @@ class _DHNewsContainerState extends State<DHNewsContainer>
       setState(() {
         if (dhArticles != null && dhArticles.articleCount > 0) {
           _listOfArticles.addAll(dhArticles.articles);
-          _sendTrackData(dhArticles);
+          DHArticleTrackingRequest(articleList: dhArticles.articles).sendTrackData();
         } else {
           _loadingMessage = "No content available.";
         }
@@ -78,31 +77,6 @@ class _DHNewsContainerState extends State<DHNewsContainer>
   @override
   bool get wantKeepAlive => true;
 
-  // send Track data to DH
-  void _sendTrackData(DHArticles dhArticles) {
-    List<Map<String, Object>> trackData = dhArticles.articles.map((article) {
-      Map<String, Object> info = Map();
-      info['trackData'] = article.articleTrackData;
-      info['id'] = article.articleId;
-      return info;
-    }).toList();
-    Map<String, Object> trackDataMap = Map();
-    trackDataMap['viewedDate'] =
-        DateTime.now().millisecondsSinceEpoch.toString();
-    trackDataMap['stories'] = trackData;
-    print(trackDataMap);
-    String params = 'partner=$partnerCode&puid=test123';
-    String serviceName = '/tracking?';
-    var request = DHNetworkRequest(
-      queryParams: params,
-      requestUrl: baseUrl + serviceName,
-      httpMethod: 'POST',
-    );
-    request.postBody = trackDataMap;
-    request.preformRequest().then((response){
-      print(response.body);
-    });
-  }
 
 }
 
