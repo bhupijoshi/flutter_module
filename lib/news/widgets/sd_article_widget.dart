@@ -1,3 +1,10 @@
+/**
+ * @author Bhoopi
+ * @email bhoopendra.joshi@snapdeal.com
+ * @create date 2020-05-27 21:01:13
+ * @modify date 2020-05-27 21:01:13
+ * @desc [DH news card which contain Title, Image and Source]
+ */
 
 import 'package:flutter/material.dart';
 import '../models/articles_model.dart';

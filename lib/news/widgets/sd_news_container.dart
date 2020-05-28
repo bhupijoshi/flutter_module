@@ -1,3 +1,10 @@
+/**
+ * @author Bhoopi
+ * @email bhoopendra.joshi@snapdeal.com
+ * @create date 2020-05-28 12:02:02
+ * @modify date 2020-05-28 12:02:02
+ * @desc [description]
+ */
 import 'package:flutter/material.dart';
 import 'package:flutter_in_sd/news/requests/dh_requests/dh_items_request.dart';
 import '../models/articles_model.dart';
@@ -38,6 +45,7 @@ class _SDNewsContainerState extends State<SDNewsContainer>
     //     _listOfArticles = dhArticles.articles;
     //   });
     // });
+    _listOfArticles = [];
     _fetchArticles();
   }
 
@@ -45,15 +53,13 @@ class _SDNewsContainerState extends State<SDNewsContainer>
     DHItemsRequest()
         .fetchDhNewsArticles(widget.aChannel.contentUrl)
         .then((DHArticles dhArticles) {
-      if (dhArticles != null && dhArticles.articleCount > 0) {
-        if (this.mounted) {
-          setState(() {
-            _listOfArticles.addAll(dhArticles.articles);
-          });
+      setState(() {
+        if (dhArticles != null && dhArticles.articleCount > 0) {
+          _listOfArticles.addAll(dhArticles.articles);
+        } else {
+          _loadingMessage = "No content available.";
         }
-      }else{
-        _loadingMessage = "No content available.";
-      }
+      });
     });
   }
 
@@ -61,25 +67,24 @@ class _SDNewsContainerState extends State<SDNewsContainer>
   Widget build(BuildContext context) {
     super.build(context);
     return _listOfArticles.length > 0
-        ? SingleChildScrollView(
-            child: Column(
-              children: _listOfArticles.map((anArticle) {
-                return Column(
-                  children: <Widget>[
-                    SDArticleWidget(
-                      anArticle: anArticle,
-                    ),
-                    SDDividerWidget(),
-                  ],
-                );
-              }).toList(),
-            ),
+        ? ListView.builder(
+            itemBuilder: (context, index) {
+              return Column(
+                children: <Widget>[
+                  SDArticleWidget(
+                    anArticle: _listOfArticles[index],
+                  ),
+                  SDDividerWidget(),
+                ],
+              );
+            },
+            itemCount: _listOfArticles.length,
           )
         : Center(
-          child: Text(
+            child: Text(
               _loadingMessage,
             ),
-        );
+          );
   }
 
   @override
