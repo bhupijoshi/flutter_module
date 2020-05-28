@@ -34,6 +34,8 @@ class DHArticles {
   }
 }
 
+
+
 class DHArticle {
   final String articleId;
   final String articleTitle;
@@ -48,6 +50,7 @@ class DHArticle {
   final String articleUiType;
   final int articlesImagesCount;
   final int articlesRecommendationTs;
+  final DHShareInfo shareInfo;
 
   DHArticle(
       {this.articleId,
@@ -62,7 +65,7 @@ class DHArticle {
       this.articleSourceLogo,
       this.articleUiType,
       this.articlesImagesCount,
-      this.articlesRecommendationTs});
+      this.articlesRecommendationTs,this.shareInfo});
 
   factory DHArticle.fromJson(Map<String, dynamic> json) {
     return DHArticle(
@@ -79,6 +82,7 @@ class DHArticle {
       articleUiType: json['uiType'],
       articlesImagesCount: json['imagesCount'],
       articlesRecommendationTs: json['recommendationTs'],
+      shareInfo: DHShareInfo().parseShareInfo(json['shareInfo']),
     );
   }
 
@@ -96,4 +100,17 @@ class DHArticle {
     });
     return imageUrls;
   }
+}
+
+class DHShareInfo{
+  String shareString;
+  String shareUrl;
+  DHShareInfo({this.shareString,this.shareUrl});
+
+  DHShareInfo parseShareInfo(Map<String,Object>shareInfoJson){
+    shareString = shareInfoJson['shareString'];
+    shareUrl = shareInfoJson['shareUrl'];
+    return this;
+  }
+
 }

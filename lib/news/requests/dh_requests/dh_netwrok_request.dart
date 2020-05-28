@@ -102,4 +102,9 @@ class DHNetworkRequest {
     String base64Mac = base64Encode(sha1Result.bytes);
     return base64Mac;
   }
+
+  Future<http.Response> performComScoreRequest() async {
+    final comScoreResponse = await http.get(requestUrl);
+    return comScoreResponse;
+  } 
 }
