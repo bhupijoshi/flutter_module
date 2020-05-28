@@ -35,10 +35,9 @@ class DHArticleTrackingRequest {
     );
     request.postBody = trackDataMap;
     request.preformRequest().then((response){
-      print(response.body);
+      if (response.statusCode == 204) {
+        print('Tracking sent successfully');
+      }
     });
   }
-
-
-  
 }

@@ -38,7 +38,6 @@ class DHItemsRequest {
 
 }
 
-
 // comscore tracking 
 class DHTrackInfo{
   List<String> comscoreUrls;
