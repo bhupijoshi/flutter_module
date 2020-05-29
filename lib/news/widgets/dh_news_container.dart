@@ -52,8 +52,10 @@ class _DHNewsContainerState extends State<DHNewsContainer>
         if (dhArticles != null && dhArticles.articleCount > 0) {
           _urlForContent = dhArticles.nextPageUrl;
           _listOfArticles.addAll(dhArticles.articles);
+          
+          //Send tracking for article visibility
           DHArticleTrackingRequest(articleList: dhArticles.articles)
-              .sendTrackData();
+              .sendTrackData(dhArticles.trackUrl);
         } else {
           _loadingMessage = "No content available.";
         }

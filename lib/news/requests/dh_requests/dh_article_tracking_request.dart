@@ -7,7 +7,6 @@
  */
 
 import 'package:flutter/material.dart';
-import '../../models/dh_news_constant.dart';
 import '../../models/dh_articles_model.dart';
 import '../../requests/dh_requests/dh_netwrok_request.dart';
 class DHArticleTrackingRequest {
@@ -15,7 +14,15 @@ class DHArticleTrackingRequest {
   DHArticleTrackingRequest({@required this.articleList});
 
   // send Track data to DH
-  void sendTrackData() {
+  void sendTrackData(String trackUrl) {
+    List<String> components = trackUrl.split('?');
+    String url = components[0] + '?';
+    String params = components.length > 1 ? components[1] : "";
+
+    // String params = 'partner=$partnerCode&puid=test123';
+    // String serviceName = '/tracking?';
+
+
     List<Map<String, Object>> trackData = articleList.map((article) {
       Map<String, Object> info = Map();
       info['trackData'] = article.articleTrackData;
@@ -26,17 +33,17 @@ class DHArticleTrackingRequest {
     trackDataMap['viewedDate'] =
         DateTime.now().millisecondsSinceEpoch.toString();
     trackDataMap['stories'] = trackData;
-    String params = 'partner=$partnerCode&puid=test123';
-    String serviceName = '/tracking?';
     var request = DHNetworkRequest(
       queryParams: params,
-      requestUrl: baseUrl + serviceName,
+      requestUrl: url ,
       httpMethod: 'POST',
     );
     request.postBody = trackDataMap;
     request.preformRequest().then((response){
       if (response.statusCode == 204) {
         print('Tracking sent successfully');
+      }else{
+        print('Tracking error Code ${response.statusCode}');
       }
     });
   }
