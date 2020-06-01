@@ -1,30 +1,21 @@
 /*
  * @author Bhoopi
  * @email bhoopendra.joshi@snapdeal.com
- * @create date 2020-05-27 21:01:13
- * @modify date 2020-05-27 21:01:13
- * @desc [DH news card which contain Title, Image and Source]
+ * @create date 2020-06-01 15:04:01
+ * @modify date 2020-06-01 15:04:01
+ * @desc [Headline cell]
  */
-
 import 'package:flutter/material.dart';
-import 'package:flutter_in_sd/news/widgets/ui/dh_article_ui_component/dh_author_name.dart';
-import 'package:flutter_in_sd/news/widgets/ui/dh_article_ui_component/dh_share_icon.dart';
-import './ui/dh_article_ui_component/dh_thumbnail.dart';
-import './ui/dh_article_ui_component/dh_title.dart';
-import '../models/dh_articles_model.dart';
-import './dh_news_detail_page.dart';
+import 'dh_article_ui_component/dh_source.dart';
+import '../../models/dh_articles_model.dart';
+import 'dh_article_ui_component/dh_title.dart';
+import 'dh_article_ui_component/dh_thumbnail.dart';
+import 'dh_article_ui_component/dh_share_icon.dart';
+import '../dh_news_detail_page.dart';
 
-class DHArticleWidget extends StatelessWidget {
-  final DHArticle anArticle;
-  DHArticleWidget({@required this.anArticle});
-
-  void _openNewsDetailPage(BuildContext context) {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => DHNewsDetailPage(dhArticle: anArticle)));
-  }
-
+class DHHeadlineCell extends StatelessWidget {
+  final DHArticle article;
+  DHHeadlineCell({@required this.article});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -47,13 +38,13 @@ class DHArticleWidget extends StatelessWidget {
                     SizedBox(
                       height: 15.0,
                     ),
-                    DHTitle(titleText: anArticle.articleTitle),
+                    DHTitle(titleText: article.articleTitle),
                     SizedBox(
                       height: 11.25,
                     ),
                     DHThumbnail(
-                      thumbUrl: anArticle.images.length > 0
-                          ? anArticle.images[0]
+                      thumbUrl: article.images.length > 0
+                          ? article.images[0]
                           : 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2700&q=80',
                     ),
                     SizedBox(
@@ -64,8 +55,8 @@ class DHArticleWidget extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          DHAuthorName(
-                            authorNameText: anArticle.source,
+                          DHSource(
+                            sourceName: article.source,
                           ),
                           DHShareIcon(
                             iconName: 'images/dh_share.png',
@@ -79,6 +70,15 @@ class DHArticleWidget extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  void _openNewsDetailPage(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => DHNewsDetailPage(dhArticle: article),
       ),
     );
   }

@@ -49,7 +49,7 @@ class _DHNewsTabbarControllerState extends State<DHNewsTabbarController> {
                   unselectedLabelColor: tabBarUnSelectedTextColor,
                   labelColor: tabBarSelectedTextColor,
                   indicatorColor: tabBarSelectedTextColor,
-                  isScrollable: false,
+                  isScrollable: true,
                   tabs: _channels.allChannels.map((aChanel) {
                     return Tab(
                       text: aChanel.channelName,

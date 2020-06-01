@@ -1,3 +1,10 @@
+/*
+ * @author Bhoopi
+ * @email bhoopendra.joshi@snapdeal.com
+ * @create date 2020-06-01 22:18:56
+ * @modify date 2020-06-01 22:18:56
+ * @desc [description]
+ */
 class DHChannels {
   final int channelCount;
   final String nextPageUrl;

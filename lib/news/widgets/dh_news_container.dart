@@ -1,18 +1,20 @@
-import 'package:flutter/cupertino.dart';
-/**
+/*
  * @author Bhoopi
  * @email bhoopendra.joshi@snapdeal.com
  * @create date 2020-05-28 12:02:02
  * @modify date 2020-05-28 12:02:02
  * @desc [News list view]
  */
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_in_sd/news/requests/dh_requests/dh_article_tracking_request.dart';
+import '../requests/dh_requests/dh_article_tracking_request.dart';
+import './ui/dh_daily_share_cell.dart';
+import './ui/dh_entertainment_cell.dart';
+import './ui/dh_headline_cell.dart';
 import '../requests/dh_requests/dh_items_request.dart';
 import '../models/dh_articles_model.dart';
 import '../models/dh_channels.dart';
 import './dh_divider_widget.dart';
-import './dh_article_widget.dart';
 
 class DHNewsContainer extends StatefulWidget {
   final DHChannel aChannel;
@@ -34,7 +36,6 @@ class _DHNewsContainerState extends State<DHNewsContainer>
     _urlForContent = '';
     super.initState();
     if (widget.aChannel != null) {
-      _urlForContent = 'http://feed.dailyhunt.in/api/v2/syndication/items?partner=snapdeal1&puid=test123&pfm=96&langCode=en&fm=0&cid=1';
       _fetchArticles(widget.aChannel.contentUrl);
     }
     _scrollController.addListener(() {
@@ -54,7 +55,7 @@ class _DHNewsContainerState extends State<DHNewsContainer>
         if (dhArticles != null && dhArticles.articleCount > 0) {
           _urlForContent = dhArticles.nextPageUrl;
           _listOfArticles.addAll(dhArticles.articles);
-          
+
           //Send tracking for article visibility
           DHArticleTrackingRequest(articleList: dhArticles.articles)
               .sendTrackData(dhArticles.trackUrl);
@@ -83,9 +84,7 @@ class _DHNewsContainerState extends State<DHNewsContainer>
                     )
                   : Column(
                       children: <Widget>[
-                        DHArticleWidget(
-                          anArticle: _listOfArticles[index],
-                        ),
+                        _getWidget(index),
                         DHDividerWidget(),
                       ],
                     );
@@ -97,6 +96,22 @@ class _DHNewsContainerState extends State<DHNewsContainer>
               _loadingMessage,
             ),
           );
+  }
+
+  Widget _getWidget(int index) {
+    if (widget.aChannel.channelId == '1') {
+      return DHHeadlineCell(
+        article: _listOfArticles[index],
+      );
+    } else if (widget.aChannel.channelId == '2') {
+      return DHEntertainmentCell(
+        dhArticle: _listOfArticles[index],
+      );
+    } else {
+      return DHDailyShareCell(
+        dailyShareArticle: _listOfArticles[index],
+      );
+    }
   }
 
   @override
