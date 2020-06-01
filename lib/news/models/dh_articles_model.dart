@@ -26,6 +26,9 @@ class DHArticles {
   }
 
   static List<DHArticle> parseArticles(articlesJson) {
+    if (articlesJson == null && articlesJson['rows'] == null) {
+      return [];
+    }
     var list = articlesJson['rows'] as List;
     List<DHArticle> articles = list.map((article) {
       return DHArticle.fromJson(article);

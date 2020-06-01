@@ -1,4 +1,4 @@
-/**
+/*
  * @author Bhoopi
  * @email bhoopendra.joshi@snapdeal.com
  * @create date 2020-05-27 21:01:13
@@ -60,7 +60,7 @@ class DHArticleWidget extends StatelessWidget {
                       decoration: BoxDecoration(
                         image: DecorationImage(
                             image: NetworkImage(
-                              anArticle.images[0],
+                             anArticle.images.length > 0 ? anArticle.images[0] : 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2700&q=80',
                             ),
                             fit: BoxFit.fitWidth),
                         borderRadius: BorderRadius.circular(5),

@@ -31,7 +31,10 @@ class _DHNewsContainerState extends State<DHNewsContainer>
   @override
   void initState() {
     _listOfArticles = [];
+    _urlForContent = '';
+    super.initState();
     if (widget.aChannel != null) {
+      _urlForContent = 'http://feed.dailyhunt.in/api/v2/syndication/items?partner=snapdeal1&puid=test123&pfm=96&langCode=en&fm=0&cid=1';
       _fetchArticles(widget.aChannel.contentUrl);
     }
     _scrollController.addListener(() {
@@ -40,7 +43,6 @@ class _DHNewsContainerState extends State<DHNewsContainer>
         _fetchArticles(_urlForContent);
       }
     });
-    super.initState();
   }
 
 // Get Articles from DH Server
