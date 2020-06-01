@@ -37,7 +37,7 @@ class _DHNewsTabbarControllerState extends State<DHNewsTabbarController> {
   Widget build(BuildContext context) {
     return _channels != null
         ? DefaultTabController(
-            length: _channels.channelCount,
+            length: _channels.allChannels.length,
             child: Scaffold(
               appBar: AppBar(
                 title: Text(
@@ -49,7 +49,7 @@ class _DHNewsTabbarControllerState extends State<DHNewsTabbarController> {
                   unselectedLabelColor: tabBarUnSelectedTextColor,
                   labelColor: tabBarSelectedTextColor,
                   indicatorColor: tabBarSelectedTextColor,
-                  isScrollable: true,
+                  isScrollable: false,
                   tabs: _channels.allChannels.map((aChanel) {
                     return Tab(
                       text: aChanel.channelName,

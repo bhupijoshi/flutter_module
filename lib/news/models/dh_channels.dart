@@ -25,7 +25,7 @@ class DHChannels {
     List<DHChannel> channelList = list.map((channelJson){
       return DHChannel.fromJson(channelJson);
     }).toList();
-    return channelList;
+    return channelList.sublist(0,3);
   }
 }
 

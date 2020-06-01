@@ -1,4 +1,3 @@
-
 class DHArticles {
   final int articleCount;
   final String nextPageUrl;
@@ -37,8 +36,6 @@ class DHArticles {
   }
 }
 
-
-
 class DHArticle {
   final String articleId;
   final String articleTitle;
@@ -53,22 +50,31 @@ class DHArticle {
   final String articleUiType;
   final int articlesImagesCount;
   final int articlesRecommendationTs;
-  final DHShareInfo shareInfo;
+  final DHArticleShareInfo articleShareInfo; // used for share the the article
+  final DHArticleThumbnailInfo articleThumbnailInfo; // thumbnail of the article, In daily share we are getting thumbnail instead of images
+  final List<String> articleTags; // tags associated with article
+  final String authorName; // article author name
 
-  DHArticle(
-      {this.articleId,
-      this.articleTitle,
-      this.articleDescription,
-      this.deepLinkUrl,
-      this.publishTime,
-      this.images,
-      this.source,
-      this.articleType,
-      this.articleTrackData,
-      this.articleSourceLogo,
-      this.articleUiType,
-      this.articlesImagesCount,
-      this.articlesRecommendationTs,this.shareInfo});
+
+  DHArticle({
+    this.articleId,
+    this.articleTitle,
+    this.articleDescription,
+    this.deepLinkUrl,
+    this.publishTime,
+    this.images,
+    this.source,
+    this.articleType,
+    this.articleTrackData,
+    this.articleSourceLogo,
+    this.articleUiType,
+    this.articlesImagesCount,
+    this.articlesRecommendationTs,
+    this.articleShareInfo,
+    this.articleThumbnailInfo,
+    this.articleTags,
+    this.authorName,
+  });
 
   factory DHArticle.fromJson(Map<String, dynamic> json) {
     return DHArticle(
@@ -85,17 +91,22 @@ class DHArticle {
       articleUiType: json['uiType'],
       articlesImagesCount: json['imagesCount'],
       articlesRecommendationTs: json['recommendationTs'],
-      shareInfo: DHShareInfo().parseShareInfo(json['shareInfo']),
+      articleShareInfo: DHArticleShareInfo().parseShareInfo(json['shareInfo']),
+      articleThumbnailInfo: DHArticleThumbnailInfo().parseThumbnailInfo(json['thumbnail']),
+      articleTags: parseArticleTags(json['tags']),
+      authorName: json['authorName'],
+
     );
   }
 
+// parse images for the article
   static List<String> parseImages(imageJson) {
     if (imageJson == null) {
-        return [];
+      return [];
     }
     List<String> images = List<String>.from(imageJson);
     List<String> imageUrls = [];
-     images.forEach((imageUrl){
+    images.forEach((imageUrl) {
       imageUrl = imageUrl.replaceAll('{CMD}', 'resize');
       imageUrl = imageUrl.replaceAll('{W}x{H}_{Q}', '375x100_50');
       imageUrl = imageUrl.replaceAll('{EXT}', 'png');
@@ -103,17 +114,42 @@ class DHArticle {
     });
     return imageUrls;
   }
+
+  static List<String> parseArticleTags(tagJson){
+    if (tagJson == null) {
+      return [];
+    }
+    return List<String>.from(tagJson);
+  }
 }
 
-class DHShareInfo{
+class DHArticleShareInfo {
   String shareString;
   String shareUrl;
-  DHShareInfo({this.shareString,this.shareUrl});
+  DHArticleShareInfo({this.shareString, this.shareUrl});
 
-  DHShareInfo parseShareInfo(Map<String,Object>shareInfoJson){
+  DHArticleShareInfo parseShareInfo(Map<String, Object> shareInfoJson) {
     shareString = shareInfoJson['shareString'];
     shareUrl = shareInfoJson['shareUrl'];
     return this;
   }
+}
 
+class DHArticleThumbnailInfo {
+  String url;
+  double height;
+  double width;
+  DHArticleThumbnailInfo({this.url, this.height, this.width});
+  DHArticleThumbnailInfo parseThumbnailInfo(Map<String, Object> thumbnailJson) {
+    if (thumbnailJson == null) {
+      return this;
+    }
+    url = thumbnailJson['url'];
+    url = url.replaceAll('{CMD}', 'resize');
+    url = url.replaceAll('{W}x{H}_{Q}', '375x100_50');
+    url = url.replaceAll('{EXT}', 'png');
+    height = thumbnailJson['height'];
+    width = thumbnailJson['width'];
+    return this;
+  }
 }
