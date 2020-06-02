@@ -19,6 +19,10 @@ class DHDailyShareCell extends StatelessWidget {
   DHDailyShareCell({@required this.dailyShareArticle});
   @override
   Widget build(BuildContext context) {
+     bool isThumbnail = false;
+    if (dailyShareArticle.articleThumbnailInfo != null && dailyShareArticle.articleThumbnailInfo.url.length > 0) {
+      isThumbnail = true;
+    }
     return Container(
       color: Colors.white,
       child: Column(
@@ -28,7 +32,7 @@ class DHDailyShareCell extends StatelessWidget {
             onTap: () => _openNewsDetailPage(context),
             child: Container(
               color: Colors.white,
-              height: 319,
+              height: isThumbnail ? 319 : 134,
               padding: EdgeInsets.symmetric(horizontal: 16),
               child: Card(
                 elevation: 0,
@@ -42,13 +46,13 @@ class DHDailyShareCell extends StatelessWidget {
                     DHTitle(titleText: dailyShareArticle.articleTitle),
                     SizedBox(
                       height: 11.25,
-                    ),
-                    DHThumbnail(
-                      thumbUrl: dailyShareArticle.articleThumbnailInfo.url !=
-                              null
-                          ? dailyShareArticle.articleThumbnailInfo.url
-                          : 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2700&q=80',
-                    ),
+                    ), isThumbnail
+                        ? DHThumbnail(
+                            thumbUrl: dailyShareArticle.articleThumbnailInfo.url,
+                          )
+                        : SizedBox(
+                            height: 0,
+                          ),
                     SizedBox(
                       height: 12,
                     ),

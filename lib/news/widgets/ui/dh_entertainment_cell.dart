@@ -14,7 +14,6 @@ import 'dh_article_ui_component/dh_share_icon.dart';
 import 'dh_article_ui_component/dh_source.dart';
 import '../dh_news_detail_page.dart';
 
-
 class DHEntertainmentCell extends StatelessWidget {
   final DHArticle dhArticle;
   DHEntertainmentCell({
@@ -23,6 +22,10 @@ class DHEntertainmentCell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isThumbnail = false;
+    if (dhArticle.images.length > 0) {
+      isThumbnail = true;
+    }
     return Container(
       color: Colors.white,
       child: Column(
@@ -32,7 +35,7 @@ class DHEntertainmentCell extends StatelessWidget {
             onTap: () => _openNewsDetailPage(context),
             child: Container(
               color: Colors.white,
-              height: 319,
+              height: isThumbnail ? 319 : 134,
               padding: EdgeInsets.symmetric(horizontal: 16),
               child: Card(
                 elevation: 0,
@@ -47,11 +50,13 @@ class DHEntertainmentCell extends StatelessWidget {
                     SizedBox(
                       height: 11.25,
                     ),
-                    DHThumbnail(
-                      thumbUrl: dhArticle.images.length > 0
-                          ? dhArticle.images[0]
-                          : 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2700&q=80',
-                    ),
+                    isThumbnail
+                        ? DHThumbnail(
+                            thumbUrl: dhArticle.images[0],
+                          )
+                        : SizedBox(
+                            height: 0,
+                          ),
                     SizedBox(
                       height: 12,
                     ),

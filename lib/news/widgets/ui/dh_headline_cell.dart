@@ -18,6 +18,10 @@ class DHHeadlineCell extends StatelessWidget {
   DHHeadlineCell({@required this.article});
   @override
   Widget build(BuildContext context) {
+    bool isThumbnail = false;
+    if (article.images.length > 0) {
+      isThumbnail = true;
+    }
     return Container(
       color: Colors.white,
       child: Column(
@@ -27,7 +31,7 @@ class DHHeadlineCell extends StatelessWidget {
             onTap: () => _openNewsDetailPage(context),
             child: Container(
               color: Colors.white,
-              height: 319,
+              height: isThumbnail ? 319 : 319 - 185,
               padding: EdgeInsets.symmetric(horizontal: 16),
               child: Card(
                 elevation: 0,
@@ -42,11 +46,13 @@ class DHHeadlineCell extends StatelessWidget {
                     SizedBox(
                       height: 11.25,
                     ),
-                    DHThumbnail(
-                      thumbUrl: article.images.length > 0
-                          ? article.images[0]
-                          : 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2700&q=80',
-                    ),
+                    isThumbnail
+                        ? DHThumbnail(
+                            thumbUrl: article.images[0],
+                          )
+                        : SizedBox(
+                            height: 0,
+                          ),
                     SizedBox(
                       height: 12,
                     ),
