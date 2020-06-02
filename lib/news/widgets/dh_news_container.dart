@@ -57,8 +57,7 @@ class _DHNewsContainerState extends State<DHNewsContainer>
           _listOfArticles.addAll(dhArticles.articles);
 
           //Send tracking for article visibility
-          DHArticleTrackingRequest(articleList: dhArticles.articles)
-              .sendTrackData(dhArticles.trackUrl);
+          _sendNewsVisibilityTracking(dhArticles.articles, dhArticles.trackUrl);
         } else {
           _loadingMessage = "No content available.";
         }
@@ -66,6 +65,9 @@ class _DHNewsContainerState extends State<DHNewsContainer>
     });
   }
 
+void _sendNewsVisibilityTracking(List<DHArticle> articles, String trackUrl){
+  // DHArticleTrackingRequest(articleList: articles).sendTrackData(trackUrl);
+}
   @override
   Widget build(BuildContext context) {
     super.build(context);

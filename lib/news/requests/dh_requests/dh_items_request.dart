@@ -18,7 +18,7 @@ class DHItemsRequest {
         dhArticles = DHArticles.fromJson(jsonResponse['data']);
       }
       if (jsonResponse['track'] !=null) {
-        _sendComscoreTracking(jsonResponse['track']);
+        // _sendComscoreTracking(jsonResponse['track']);
       }
       return dhArticles;
     } else {

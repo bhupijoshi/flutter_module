@@ -51,8 +51,35 @@ class DHEntertainmentCell extends StatelessWidget {
                       height: 11.25,
                     ),
                     isThumbnail
-                        ? DHThumbnail(
-                            thumbUrl: dhArticle.images[0],
+                        ? Stack(
+                            alignment: Alignment.center,
+                            children: <Widget>[
+                              DHThumbnail(
+                                thumbUrl: dhArticle.images[0],
+                              ),
+                              dhArticle.articleType == "video".toUpperCase()
+                                  ? Stack(
+                                      alignment: Alignment.center,
+                                      children: <Widget>[
+                                        Container(
+                                          height: 32,
+                                          width: 32,
+                                          decoration: BoxDecoration(
+                                            color:
+                                                Colors.black.withOpacity(0.5),
+                                            borderRadius:
+                                                BorderRadius.circular(16),
+                                          ),
+                                          child: Image.asset(
+                                            'images/dh_play.png',
+                                          ),
+                                        )
+                                      ],
+                                    )
+                                  : SizedBox(
+                                      height: 0,
+                                    ),
+                            ],
                           )
                         : SizedBox(
                             height: 0,
