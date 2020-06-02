@@ -21,7 +21,7 @@ class DHThumbnail extends StatelessWidget {
             image: NetworkImage(
               thumbUrl,
             ),
-            fit: BoxFit.fitWidth),
+            fit: BoxFit.cover),
         borderRadius: BorderRadius.circular(5),
       ),
     );

@@ -7,7 +7,7 @@
  */
 
 import 'package:flutter/material.dart';
-import 'package:flutter_in_sd/news/widgets/ui/dh_article_ui_component/dh_author_name.dart';
+import 'dh_article_ui_component/dh_author_name.dart';
 import '../../models/dh_articles_model.dart';
 import 'dh_article_ui_component/dh_title.dart';
 import 'dh_article_ui_component/dh_thumbnail.dart';
