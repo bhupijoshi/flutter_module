@@ -29,6 +29,7 @@ class _DHNewsContainerState extends State<DHNewsContainer>
   ScrollController _scrollController = ScrollController();
   List<DHArticle> _listOfArticles = [];
   String _urlForContent = '';
+  List<DHArticle> _visibleArticles = [];
 
   @override
   void initState() {
@@ -101,17 +102,22 @@ void _sendNewsVisibilityTracking(List<DHArticle> articles, String trackUrl){
   }
 
   Widget _getWidget(int index) {
+    var anArticle = _listOfArticles[index];
+    if (anArticle.isVisibleOnScreen == false) {
+      anArticle.isVisibleOnScreen = true;
+      _visibleArticles.add(anArticle);
+    }
     if (widget.aChannel.channelId == '1') {
       return DHHeadlineCell(
-        article: _listOfArticles[index],
+        article: anArticle,
       );
     } else if (widget.aChannel.channelId == '2') {
       return DHEntertainmentCell(
-        dhArticle: _listOfArticles[index],
+        dhArticle: anArticle,
       );
     } else {
       return DHDailyShareCell(
-        dailyShareArticle: _listOfArticles[index],
+        dailyShareArticle: anArticle,
       );
     }
   }

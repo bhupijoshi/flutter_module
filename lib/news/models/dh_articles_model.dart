@@ -54,6 +54,7 @@ class DHArticle {
   final DHArticleThumbnailInfo articleThumbnailInfo; // thumbnail of the article, In daily share we are getting thumbnail instead of images
   final List<String> articleTags; // tags associated with article
   final String authorName; // article author name
+  bool isVisibleOnScreen;
 
 
   DHArticle({
@@ -74,6 +75,7 @@ class DHArticle {
     this.articleThumbnailInfo,
     this.articleTags,
     this.authorName,
+    this.isVisibleOnScreen = false,
   });
 
   factory DHArticle.fromJson(Map<String, dynamic> json) {
@@ -95,7 +97,6 @@ class DHArticle {
       articleThumbnailInfo: DHArticleThumbnailInfo().parseThumbnailInfo(json['thumbnail']),
       articleTags: parseArticleTags(json['tags']),
       authorName: json['authorName'],
-
     );
   }
 
