@@ -2,17 +2,12 @@ import 'package:flutter/material.dart';
 import 'dart:ui';
 import 'package:flutter/services.dart';
 import './news/widgets/dh_news_tabbar_controller.dart';
-import './sd_dynamic_wdgets/widgets/sd_dynamic_widget_page.dart';
 
 
 void main() => runApp(_widgetForRoute(window.defaultRouteName));
 
 Widget _widgetForRoute(String route) {
   switch (route) {
-    case 'myApp':
-      return MyApp();
-    case 'SDSample':
-      return SDSample();
     case 'BannerApp':
       return BannerApp();
     case 'SDNewsApp':
@@ -22,80 +17,6 @@ Widget _widgetForRoute(String route) {
   }
 }
 
-//void main() => runApp(MyApp());
-
-@pragma('vm:entry-point')
-void myOtherEntrypoint() => runApp(BannerApp());
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: MyAppHomePage(),
-    );
-  }
-}
-
-@pragma('vm:entry-point')
-void sdSamplepApp() => runApp(SDSample());
-
-class SDSample extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: SDSamplePage(),
-    );
-  }
-}
-
-class SDSamplePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Container(
-            height: 100,
-            child: Card(
-              color: Colors.green,
-              elevation: 10,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class MyAppHomePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Container(
-            height: 164,
-            child: Column(
-              children: <Widget>[
-                Text(
-                  'Main Dart File',
-                ),
-                Card(
-                  elevation: 10,
-                  color: Colors.blue,
-                  child: Image.network(
-                      'https://image.shutterstock.com/image-photo/panorama-beautiful-countryside-romania-sunny-260nw-1302294157.jpg'),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
 
 class BannerApp extends StatelessWidget {
   @override
@@ -185,17 +106,6 @@ class SDNewsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DHNewsTabbarController();
-  }
-}
-
-
-// Dynamic widget page
-class SDDynamicWidgetApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: SDDynamicWidgetPage(),
-    );
   }
 }
 

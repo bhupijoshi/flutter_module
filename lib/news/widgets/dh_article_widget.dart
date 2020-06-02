@@ -12,17 +12,13 @@ import 'package:flutter_in_sd/news/widgets/ui/dh_article_ui_component/dh_share_i
 import './ui/dh_article_ui_component/dh_thumbnail.dart';
 import './ui/dh_article_ui_component/dh_title.dart';
 import '../models/dh_articles_model.dart';
-import './dh_news_detail_page.dart';
 
 class DHArticleWidget extends StatelessWidget {
   final DHArticle anArticle;
   DHArticleWidget({@required this.anArticle});
 
   void _openNewsDetailPage(BuildContext context) {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => DHNewsDetailPage(dhArticle: anArticle)));
+    
   }
 
   @override

@@ -12,7 +12,6 @@ import '../../models/dh_articles_model.dart';
 import 'dh_article_ui_component/dh_title.dart';
 import 'dh_article_ui_component/dh_thumbnail.dart';
 import 'dh_article_ui_component/dh_share_icon.dart';
-import '../dh_news_detail_page.dart';
 
 class DHDailyShareCell extends StatelessWidget {
   final DHArticle dailyShareArticle;
@@ -81,11 +80,6 @@ class DHDailyShareCell extends StatelessWidget {
   }
 
   void _openNewsDetailPage(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => DHNewsDetailPage(dhArticle: dailyShareArticle),
-      ),
-    );
+    
   }
 }
