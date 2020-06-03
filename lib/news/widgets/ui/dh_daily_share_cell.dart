@@ -7,6 +7,7 @@
  */
 
 import 'package:flutter/material.dart';
+import 'package:flutter_in_sd/news/widgets/ui/dh_article_ui_component/dh_tags.dart';
 import 'dh_article_ui_component/dh_author_name.dart';
 import '../../models/dh_articles_model.dart';
 import 'dh_article_ui_component/dh_title.dart';
@@ -18,8 +19,9 @@ class DHDailyShareCell extends StatelessWidget {
   DHDailyShareCell({@required this.dailyShareArticle});
   @override
   Widget build(BuildContext context) {
-     bool isThumbnail = false;
-    if (dailyShareArticle.articleThumbnailInfo != null && dailyShareArticle.articleThumbnailInfo.url.length > 0) {
+    bool isThumbnail = false;
+    if (dailyShareArticle.articleThumbnailInfo != null &&
+        dailyShareArticle.articleThumbnailInfo.url.length > 0) {
       isThumbnail = true;
     }
     return Container(
@@ -45,9 +47,21 @@ class DHDailyShareCell extends StatelessWidget {
                     DHTitle(titleText: dailyShareArticle.articleTitle),
                     SizedBox(
                       height: 11.25,
-                    ), isThumbnail
+                    ),
+                    dailyShareArticle.articleTags.length > 0
+                        ? DHTags(
+                            allTags: dailyShareArticle.articleTags,
+                          )
+                        : SizedBox(
+                            height: 0,
+                          ),
+                    SizedBox(
+                      height: 11.25,
+                    ),
+                    isThumbnail
                         ? DHThumbnail(
-                            thumbUrl: dailyShareArticle.articleThumbnailInfo.url,
+                            thumbUrl:
+                                dailyShareArticle.articleThumbnailInfo.url,
                           )
                         : SizedBox(
                             height: 0,
@@ -79,7 +93,5 @@ class DHDailyShareCell extends StatelessWidget {
     );
   }
 
-  void _openNewsDetailPage(BuildContext context) {
-    
-  }
+  void _openNewsDetailPage(BuildContext context) {}
 }
