@@ -67,7 +67,7 @@ class _DHNewsContainerState extends State<DHNewsContainer>
   }
 
 void _sendNewsVisibilityTracking(List<DHArticle> articles, String trackUrl){
-  // DHArticleTrackingRequest(articleList: articles).sendTrackData(trackUrl);
+  DHArticleTrackingRequest(articleList: articles).sendTrackData(trackUrl);
 }
   @override
   Widget build(BuildContext context) {
