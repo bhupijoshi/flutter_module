@@ -9,17 +9,29 @@
 import 'package:flutter/material.dart';
 
 class DHShareIcon extends StatelessWidget {
+  final shareFunction;
   final String iconName;
-  DHShareIcon({@required this.iconName});
+  DHShareIcon({
+    @required this.iconName,
+    this.shareFunction,
+  });
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 16.0,
       width: 14.0,
       child: GestureDetector(
-        onTap: () => {},
+        onTap: _perfromShare,
         child: Image.asset(iconName),
       ),
     );
+  }
+
+  void _perfromShare() {
+    try{
+          shareFunction();
+    }catch(e){
+      
+    }
   }
 }

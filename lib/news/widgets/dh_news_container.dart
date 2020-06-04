@@ -5,6 +5,8 @@
  * @modify date 2020-05-28 12:02:02
  * @desc [News list view]
  */
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../requests/dh_requests/dh_article_tracking_request.dart';
@@ -15,6 +17,8 @@ import '../requests/dh_requests/dh_items_request.dart';
 import '../models/dh_articles_model.dart';
 import '../models/dh_channels.dart';
 import './dh_divider_widget.dart';
+import 'package:flutter_share_me/flutter_share_me.dart';
+import 'package:http/http.dart' as http;
 
 class DHNewsContainer extends StatefulWidget {
   final DHChannel aChannel;
@@ -66,9 +70,9 @@ class _DHNewsContainerState extends State<DHNewsContainer>
     });
   }
 
-void _sendNewsVisibilityTracking(List<DHArticle> articles, String trackUrl){
-  // DHArticleTrackingRequest(articleList: articles).sendTrackData(trackUrl);
-}
+  void _sendNewsVisibilityTracking(List<DHArticle> articles, String trackUrl) {
+    // DHArticleTrackingRequest(articleList: articles).sendTrackData(trackUrl);
+  }
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -110,18 +114,59 @@ void _sendNewsVisibilityTracking(List<DHArticle> articles, String trackUrl){
     if (widget.aChannel.channelId == '1') {
       return DHHeadlineCell(
         article: anArticle,
+        shareFunction: _shareAction,
       );
     } else if (widget.aChannel.channelId == '2') {
       return DHEntertainmentCell(
         dhArticle: anArticle,
+        shareFunction: _shareAction,
       );
     } else {
       return DHDailyShareCell(
         dailyShareArticle: anArticle,
+        shareFunction: _shareAction,
       );
     }
   }
 
   @override
   bool get wantKeepAlive => true;
+
+  void _shareAction(String imageUrl, String msg) async {
+    String b64Image = '';
+    if (imageUrl != null && imageUrl.length > 0) {
+      var response = await http.get(
+        imageUrl);
+    b64Image =
+        'data:image/jpeg;base64,' + base64Encode(response.bodyBytes);
+    }
+    _shareToWhatsApp(b64Image,msg);
+  }
+
+  void _shareToWhatsApp(String base64ImageString, String msg) async{
+     try {
+      await FlutterShareMe()
+          .shareToWhatsApp(base64Image: base64ImageString, msg: msg)
+          .then((value) {
+        if (value == "success") {
+          print('Shared successfully');
+        } else {
+          _openShareSheet(msg);
+        }
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  void _openShareSheet(String msg) async{
+    try {
+      await FlutterShareMe().shareToSystem(msg: msg);
+    }catch(e){
+
+    }
+
+  }
+
+
 }

@@ -17,7 +17,8 @@ import '../../models/dh_news_constant.dart';
 
 class DHHeadlineCell extends StatelessWidget {
   final DHArticle article;
-  DHHeadlineCell({@required this.article});
+  final Function shareFunction;
+  DHHeadlineCell({@required this.article, this.shareFunction});
   @override
   Widget build(BuildContext context) {
     bool isThumbnail = false;
@@ -82,6 +83,7 @@ class DHHeadlineCell extends StatelessWidget {
                           ),
                           DHShareIcon(
                             iconName: 'images/dh_share.png',
+                            shareFunction: _shareArticle,
                           ),
                         ],
                       ),
@@ -95,6 +97,17 @@ class DHHeadlineCell extends StatelessWidget {
       ),
     );
   }
+
+
+  void _shareArticle(){
+    String imageUrl = '';
+    if (article.images.length > 0) {
+      imageUrl = article.images[0];
+    }
+    shareFunction(imageUrl, article.articleTitle);
+  }
+
+
 
   void _openNewsDetailPage(BuildContext context) {}
 }

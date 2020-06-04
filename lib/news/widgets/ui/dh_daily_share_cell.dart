@@ -16,7 +16,11 @@ import 'dh_article_ui_component/dh_share_icon.dart';
 
 class DHDailyShareCell extends StatelessWidget {
   final DHArticle dailyShareArticle;
-  DHDailyShareCell({@required this.dailyShareArticle});
+  final Function shareFunction;
+  DHDailyShareCell({
+    @required this.dailyShareArticle,
+    this.shareFunction,
+  });
   @override
   Widget build(BuildContext context) {
     bool isThumbnail = false;
@@ -79,6 +83,7 @@ class DHDailyShareCell extends StatelessWidget {
                           ),
                           DHShareIcon(
                             iconName: 'images/dh_share.png',
+                            shareFunction: _shareArticle,
                           ),
                         ],
                       ),
@@ -91,6 +96,14 @@ class DHDailyShareCell extends StatelessWidget {
         ],
       ),
     );
+  }
+
+   void _shareArticle(){
+    String imageUrl = '';
+    if (dailyShareArticle.articleThumbnailInfo != null && dailyShareArticle.articleThumbnailInfo.url.length > 0) {
+      imageUrl = dailyShareArticle.articleThumbnailInfo.url;
+    }
+    shareFunction(imageUrl, dailyShareArticle.articleTitle);
   }
 
   void _openNewsDetailPage(BuildContext context) {}

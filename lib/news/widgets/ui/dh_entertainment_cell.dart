@@ -17,8 +17,10 @@ import 'dh_article_ui_component/dh_source.dart';
 
 class DHEntertainmentCell extends StatelessWidget {
   final DHArticle dhArticle;
+  final Function shareFunction;
   DHEntertainmentCell({
     @required this.dhArticle,
+    this.shareFunction,
   });
 
   @override
@@ -112,6 +114,7 @@ class DHEntertainmentCell extends StatelessWidget {
                           ),
                           DHShareIcon(
                             iconName: 'images/dh_share.png',
+                            shareFunction: _shareArticle,
                           ),
                         ],
                       ),
@@ -124,6 +127,14 @@ class DHEntertainmentCell extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void _shareArticle(){
+    String imageUrl = '';
+    if (dhArticle.images.length > 0) {
+      imageUrl = dhArticle.images[0];
+    }
+    shareFunction(imageUrl, dhArticle.articleTitle);
   }
 
   void _openNewsDetailPage(BuildContext context) {}
