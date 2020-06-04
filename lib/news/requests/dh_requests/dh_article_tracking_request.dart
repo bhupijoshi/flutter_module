@@ -9,6 +9,8 @@
 import 'package:flutter/material.dart';
 import '../../models/dh_articles_model.dart';
 import '../../requests/dh_requests/dh_netwrok_request.dart';
+import '../../models/dh_news_constant.dart';
+
 class DHArticleTrackingRequest {
   final List<DHArticle> articleList;
   DHArticleTrackingRequest({@required this.articleList});
@@ -18,6 +20,8 @@ class DHArticleTrackingRequest {
     List<String> components = trackUrl.split('?');
     String url = components[0] + '?';
     String params = components.length > 1 ? components[1] : "";
+    params = '&langCode=en&partner=$partnerCode&puid=test123';
+
 
     // String params = 'partner=$partnerCode&puid=test123';
     // String serviceName = '/tracking?';

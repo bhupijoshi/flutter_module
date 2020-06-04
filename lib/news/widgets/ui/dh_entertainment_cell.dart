@@ -7,8 +7,8 @@
  */
 
 import 'package:flutter/material.dart';
-import 'package:flutter_in_sd/news/models/dh_news_constant.dart';
-import 'package:flutter_in_sd/news/widgets/ui/dh_article_ui_component/dh_publish_time.dart';
+import '../../models/dh_news_constant.dart';
+import 'dh_article_ui_component/dh_publish_time.dart';
 import '../../models/dh_articles_model.dart';
 import 'dh_article_ui_component/dh_title.dart';
 import 'dh_article_ui_component/dh_thumbnail.dart';
@@ -105,7 +105,9 @@ class DHEntertainmentCell extends StatelessWidget {
                                 color: sourceTextColor,
                               ),
                               SizedBox(width: 3),
-                              DHPublishTime(publishTime: dhArticle.publishTime,),
+                              DHPublishTime(
+                                publishTime: dhArticle.publishTime,
+                              ),
                             ],
                           ),
                           DHShareIcon(

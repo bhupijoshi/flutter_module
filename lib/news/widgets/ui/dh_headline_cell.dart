@@ -11,6 +11,9 @@ import '../../models/dh_articles_model.dart';
 import 'dh_article_ui_component/dh_title.dart';
 import 'dh_article_ui_component/dh_thumbnail.dart';
 import 'dh_article_ui_component/dh_share_icon.dart';
+import 'dh_article_ui_component/dh_publish_time.dart';
+import '../../models/dh_news_constant.dart';
+
 
 class DHHeadlineCell extends StatelessWidget {
   final DHArticle article;
@@ -60,8 +63,22 @@ class DHHeadlineCell extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          DHSource(
-                            sourceName: article.source,
+                          Row(
+                            children: <Widget>[
+                              DHSource(
+                                sourceName: article.source,
+                              ),
+                              SizedBox(width: 3),
+                              Container(
+                                width: 1,
+                                height: 12,
+                                color: sourceTextColor,
+                              ),
+                              SizedBox(width: 3),
+                              DHPublishTime(
+                                publishTime: article.publishTime,
+                              ),
+                            ],
                           ),
                           DHShareIcon(
                             iconName: 'images/dh_share.png',
@@ -79,7 +96,5 @@ class DHHeadlineCell extends StatelessWidget {
     );
   }
 
-  void _openNewsDetailPage(BuildContext context) {
-   
-  }
+  void _openNewsDetailPage(BuildContext context) {}
 }
