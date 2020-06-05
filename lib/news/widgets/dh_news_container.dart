@@ -19,6 +19,8 @@ import '../models/dh_channels.dart';
 import './dh_divider_widget.dart';
 import 'package:flutter_share_me/flutter_share_me.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter/services.dart';
+
 
 class DHNewsContainer extends StatefulWidget {
   final DHChannel aChannel;
@@ -29,6 +31,8 @@ class DHNewsContainer extends StatefulWidget {
 
 class _DHNewsContainerState extends State<DHNewsContainer>
     with AutomaticKeepAliveClientMixin<DHNewsContainer> {
+  static const platfrom = const MethodChannel('com.adlok/info');
+
   String _loadingMessage = "Laoding content...";
   ScrollController _scrollController = ScrollController();
   List<DHArticle> _listOfArticles = [];
@@ -115,16 +119,19 @@ class _DHNewsContainerState extends State<DHNewsContainer>
       return DHHeadlineCell(
         article: anArticle,
         shareFunction: _shareAction,
+        deeplinkFunction: _openArticleDeeplinkInNative,
       );
     } else if (widget.aChannel.channelId == '2') {
       return DHEntertainmentCell(
         dhArticle: anArticle,
         shareFunction: _shareAction,
+        deeplinkFunction: _openArticleDeeplinkInNative,
       );
     } else {
       return DHDailyShareCell(
         dailyShareArticle: anArticle,
         shareFunction: _shareAction,
+        deeplinkFunction: _openArticleDeeplinkInNative,
       );
     }
   }
@@ -166,6 +173,15 @@ class _DHNewsContainerState extends State<DHNewsContainer>
 
     }
 
+  }
+
+  // open article in partner webview in native code
+   void _openArticleDeeplinkInNative(String deeplink) {
+    print('open in deeplink');
+    Map<String,dynamic> infomation = Map();
+    infomation['deeplink'] = deeplink;
+
+    platfrom.invokeMethod('openArticle', infomation);
   }
 
 

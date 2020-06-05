@@ -17,9 +17,11 @@ import 'dh_article_ui_component/dh_share_icon.dart';
 class DHDailyShareCell extends StatelessWidget {
   final DHArticle dailyShareArticle;
   final Function shareFunction;
+  final Function deeplinkFunction;
   DHDailyShareCell({
     @required this.dailyShareArticle,
     this.shareFunction,
+    @required this.deeplinkFunction,
   });
   @override
   Widget build(BuildContext context) {
@@ -106,5 +108,7 @@ class DHDailyShareCell extends StatelessWidget {
     shareFunction(imageUrl, dailyShareArticle.articleTitle);
   }
 
-  void _openNewsDetailPage(BuildContext context) {}
+  void _openNewsDetailPage(BuildContext context) {
+    deeplinkFunction(dailyShareArticle.deepLinkUrl);
+  }
 }

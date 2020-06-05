@@ -18,9 +18,11 @@ import 'dh_article_ui_component/dh_source.dart';
 class DHEntertainmentCell extends StatelessWidget {
   final DHArticle dhArticle;
   final Function shareFunction;
+  final Function deeplinkFunction;
   DHEntertainmentCell({
     @required this.dhArticle,
     this.shareFunction,
+    @required this.deeplinkFunction,
   });
 
   @override
@@ -137,5 +139,7 @@ class DHEntertainmentCell extends StatelessWidget {
     shareFunction(imageUrl, dhArticle.articleTitle);
   }
 
-  void _openNewsDetailPage(BuildContext context) {}
+  void _openNewsDetailPage(BuildContext context) {
+    deeplinkFunction(dhArticle.deepLinkUrl);
+  }
 }
