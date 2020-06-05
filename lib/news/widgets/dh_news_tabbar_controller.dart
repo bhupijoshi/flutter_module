@@ -40,27 +40,28 @@ class _DHNewsTabbarControllerState extends State<DHNewsTabbarController> {
             length: _channels.allChannels.length,
             child: Scaffold(
               appBar: AppBar(
-                title: Text(
-                  'News',
-                  style: TextStyle(color: textColor),
-                ),
                 backgroundColor: Colors.white,
-                bottom: TabBar(
-                  unselectedLabelColor: tabBarUnSelectedTextColor,
-                  labelColor: tabBarSelectedTextColor,
-                  indicatorColor: tabBarSelectedTextColor,
-                  isScrollable: false,
-                  tabs: _channels.allChannels.map((aChanel) {
-                    return Tab(
-                      child: Text(
-                        aChanel.channelName,
-                        style: TextStyle(
-                          fontSize: 13,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    );
-                  }).toList(),
+                flexibleSpace: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    TabBar(
+                      unselectedLabelColor: tabBarUnSelectedTextColor,
+                      labelColor: tabBarSelectedTextColor,
+                      indicatorColor: tabBarSelectedTextColor,
+                      isScrollable: false,
+                      tabs: _channels.allChannels.map((aChanel) {
+                        return Tab(
+                          child: Text(
+                            aChanel.channelName,
+                            style: TextStyle(
+                              fontSize: 13,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        );
+                      }).toList(),
+                    ),
+                  ],
                 ),
               ),
               body: TabBarView(
