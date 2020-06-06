@@ -27,12 +27,6 @@ class DHPublishTime extends StatelessWidget {
     var publishDT = DateTime.fromMillisecondsSinceEpoch(publishTime);
     var currentDT = DateTime.now();
     var delta = currentDT.difference(publishDT);
-    print(DateFormat.yMMMd().format(currentDT).toString());
-    print(DateFormat.yMMMd().format(publishDT).toString());
-    print('inHours====${delta.inHours}');
-    print('inMinutes====${delta.inMinutes}');
-    print('inSeconds====${delta.inSeconds}');
-    
     if (delta.inHours < 24 && delta.inHours > 0) {
       return '${delta.inHours} hours ago';
     }else if (delta.inMinutes < 60 && delta.inMinutes > 0) {
