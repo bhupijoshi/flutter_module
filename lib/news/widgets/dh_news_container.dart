@@ -29,8 +29,7 @@ class DHNewsContainer extends StatefulWidget {
   _DHNewsContainerState createState() => _DHNewsContainerState();
 }
 
-class _DHNewsContainerState extends State<DHNewsContainer>
-    with AutomaticKeepAliveClientMixin<DHNewsContainer> {
+class _DHNewsContainerState extends State<DHNewsContainer> {
   static const platfrom = const MethodChannel('com.adlok/info');
 
   String _loadingMessage = "Laoding content...";
@@ -38,13 +37,11 @@ class _DHNewsContainerState extends State<DHNewsContainer>
   List<DHArticle> _listOfArticles = [];
   String _urlForContent = '';
   List<DHArticle> _visibleArticles = [];
-  bool _shouldReload = true;
 
   @override
   void initState() {
     _listOfArticles = [];
     _urlForContent = '';
-    _shouldReload = true;
     super.initState();
     if (widget.aChannel != null) {
       _fetchArticles(widget.aChannel.contentUrl);
@@ -66,7 +63,6 @@ class _DHNewsContainerState extends State<DHNewsContainer>
         if (dhArticles != null && dhArticles.articleCount > 0) {
           _urlForContent = dhArticles.nextPageUrl;
           _listOfArticles.addAll(dhArticles.articles);
-          _shouldReload = false;
           //Send tracking for article visibility
           _sendNewsVisibilityTracking(dhArticles.articles, dhArticles.trackUrl);
         } else {
@@ -81,7 +77,6 @@ class _DHNewsContainerState extends State<DHNewsContainer>
   }
   @override
   Widget build(BuildContext context) {
-    super.build(context);
     return _listOfArticles.length > 0
         ? ListView.builder(
             controller: _scrollController,
@@ -138,9 +133,6 @@ class _DHNewsContainerState extends State<DHNewsContainer>
     }
   }
 
-  @override
-  bool get wantKeepAlive => _shouldReload;
-
   void _shareAction(String imageUrl, String msg) async {
     String b64Image = '';
     if (imageUrl != null && imageUrl.length > 0) {
@@ -193,6 +185,4 @@ class _DHNewsContainerState extends State<DHNewsContainer>
     } catch (e) {
     }
   }
-
-
 }
