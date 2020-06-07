@@ -133,15 +133,19 @@ class _DHNewsContainerState extends State<DHNewsContainer> {
     }
   }
 
-  void _shareAction(String imageUrl, String msg) async {
+  void _shareAction(String imageUrl, String msg, String shareUrl) async {
     String b64Image = '';
+    String aResponse = '';
     if (imageUrl != null && imageUrl.length > 0) {
       var response = await http.get(
         imageUrl);
+      
     b64Image =
         'data:image/jpeg;base64,' + base64Encode(response.bodyBytes);
+    aResponse = response.body;
     }
-    _shareToWhatsApp(b64Image,msg);
+    // _shareToWhatsApp(b64Image,msg);
+    _sendShareInfoToNative(aResponse, b64Image, msg, shareUrl);
   }
 
   void _shareToWhatsApp(String base64ImageString, String msg) async{
@@ -184,5 +188,20 @@ class _DHNewsContainerState extends State<DHNewsContainer> {
 
     } catch (e) {
     }
+  }
+
+  // send share info to native app
+
+  void _sendShareInfoToNative(String response, String base64ImageString, String title, String shareUrl) {
+    Map<String,dynamic> infomation = Map();
+    infomation['response'] = response;
+    infomation['b64Image'] = base64ImageString;
+    infomation['shareUrl'] = shareUrl;
+    infomation['title'] = title;
+    try {
+      platfrom.invokeMethod('shareArticle', infomation);
+    } catch (e) {
+    }
+
   }
 }

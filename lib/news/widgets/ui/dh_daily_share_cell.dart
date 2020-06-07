@@ -105,7 +105,7 @@ class DHDailyShareCell extends StatelessWidget {
     if (dailyShareArticle.articleThumbnailInfo != null && dailyShareArticle.articleThumbnailInfo.url.length > 0) {
       imageUrl = dailyShareArticle.articleThumbnailInfo.url;
     }
-    shareFunction(imageUrl, dailyShareArticle.articleTitle);
+    shareFunction(imageUrl, dailyShareArticle.articleTitle,dailyShareArticle.articleShareInfo.shareUrl);
   }
 
   void _openNewsDetailPage(BuildContext context) {

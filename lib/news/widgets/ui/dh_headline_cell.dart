@@ -107,7 +107,7 @@ class DHHeadlineCell extends StatelessWidget {
     if (article.images.length > 0) {
       imageUrl = article.images[0];
     }
-    shareFunction(imageUrl, article.articleTitle);
+    shareFunction(imageUrl, article.articleTitle, article.articleShareInfo.shareUrl);
   }
 
   void _openNewsDetailPage(BuildContext context) {

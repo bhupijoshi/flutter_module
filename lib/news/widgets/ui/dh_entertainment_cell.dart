@@ -136,7 +136,7 @@ class DHEntertainmentCell extends StatelessWidget {
     if (dhArticle.images.length > 0) {
       imageUrl = dhArticle.images[0];
     }
-    shareFunction(imageUrl, dhArticle.articleTitle);
+    shareFunction(imageUrl, dhArticle.articleTitle,dhArticle.articleShareInfo.shareUrl);
   }
 
   void _openNewsDetailPage(BuildContext context) {
