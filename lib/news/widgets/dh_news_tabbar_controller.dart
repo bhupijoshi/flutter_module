@@ -40,6 +40,7 @@ class _DHNewsTabbarControllerState extends State<DHNewsTabbarController> {
             length: _channels.allChannels.length,
             child: Scaffold(
               appBar: AppBar(
+                brightness: Brightness.light,
                 backgroundColor: Colors.white,
                 flexibleSpace: Column(
                   mainAxisAlignment: MainAxisAlignment.end,

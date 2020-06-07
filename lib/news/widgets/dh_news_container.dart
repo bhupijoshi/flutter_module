@@ -38,11 +38,13 @@ class _DHNewsContainerState extends State<DHNewsContainer>
   List<DHArticle> _listOfArticles = [];
   String _urlForContent = '';
   List<DHArticle> _visibleArticles = [];
+  bool _shouldReload = true;
 
   @override
   void initState() {
     _listOfArticles = [];
     _urlForContent = '';
+    _shouldReload = true;
     super.initState();
     if (widget.aChannel != null) {
       _fetchArticles(widget.aChannel.contentUrl);
@@ -64,7 +66,7 @@ class _DHNewsContainerState extends State<DHNewsContainer>
         if (dhArticles != null && dhArticles.articleCount > 0) {
           _urlForContent = dhArticles.nextPageUrl;
           _listOfArticles.addAll(dhArticles.articles);
-
+          _shouldReload = false;
           //Send tracking for article visibility
           _sendNewsVisibilityTracking(dhArticles.articles, dhArticles.trackUrl);
         } else {
@@ -137,7 +139,7 @@ class _DHNewsContainerState extends State<DHNewsContainer>
   }
 
   @override
-  bool get wantKeepAlive => true;
+  bool get wantKeepAlive => _shouldReload;
 
   void _shareAction(String imageUrl, String msg) async {
     String b64Image = '';
@@ -168,7 +170,13 @@ class _DHNewsContainerState extends State<DHNewsContainer>
 
   void _openShareSheet(String msg) async{
     try {
-      await FlutterShareMe().shareToSystem(msg: msg);
+      await FlutterShareMe().shareToSystem(msg: msg).then((value) {
+        if (value == 'success') {
+           print('Shared successfully');
+        } else {
+           print('error while sharing');
+        }
+      });
     }catch(e){
 
     }
@@ -177,11 +185,13 @@ class _DHNewsContainerState extends State<DHNewsContainer>
 
   // open article in partner webview in native code
    void _openArticleDeeplinkInNative(String deeplink) {
-    print('open in deeplink');
     Map<String,dynamic> infomation = Map();
     infomation['deeplink'] = deeplink;
+    try {
+      platfrom.invokeMethod('openArticle', infomation);
 
-    platfrom.invokeMethod('openArticle', infomation);
+    } catch (e) {
+    }
   }
 
 
