@@ -10,6 +10,8 @@ import '../models/dh_channels.dart';
 import '../requests/dh_requests/dh_channels_request.dart';
 import './dh_news_container.dart';
 import '../models/dh_news_constant.dart';
+import 'package:flutter/services.dart';
+
 
 class DHNewsTabbarController extends StatefulWidget {
   @override
@@ -18,11 +20,15 @@ class DHNewsTabbarController extends StatefulWidget {
 
 class _DHNewsTabbarControllerState extends State<DHNewsTabbarController> {
   DHChannels _channels;
+  static const platfrom = const MethodChannel('com.adlok/info');
 
   @override
   void initState() {
     super.initState();
-    _fetchAvailableChannels();
+    _getNewsCxeData().then((value) {
+      _fetchAvailableChannels();
+    });
+    //  _fetchAvailableChannels();
   }
 
   void _fetchAvailableChannels() {
@@ -81,5 +87,16 @@ class _DHNewsTabbarControllerState extends State<DHNewsTabbarController> {
               ),
             ),
           );
+  }
+
+  Future<String> _getNewsCxeData() async{
+     String value;
+    try {
+      value = await platfrom.invokeMethod('getNewsCxe');
+    } catch (e) {
+      print(e);
+    }
+    return value;
+
   }
 }
