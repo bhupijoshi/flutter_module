@@ -17,7 +17,6 @@ import '../requests/dh_requests/dh_items_request.dart';
 import '../models/dh_articles_model.dart';
 import '../models/dh_channels.dart';
 import './dh_divider_widget.dart';
-import 'package:flutter_share_me/flutter_share_me.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/services.dart';
 
@@ -148,44 +147,12 @@ class _DHNewsContainerState extends State<DHNewsContainer> {
     _sendShareInfoToNative(aResponse, b64Image, msg, shareUrl);
   }
 
-  void _shareToWhatsApp(String base64ImageString, String msg) async{
-     try {
-      await FlutterShareMe()
-          .shareToWhatsApp(base64Image: base64ImageString, msg: msg)
-          .then((value) {
-        if (value == "success") {
-          print('Shared successfully');
-        } else {
-          _openShareSheet(msg);
-        }
-      });
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  void _openShareSheet(String msg) async{
-    try {
-      await FlutterShareMe().shareToSystem(msg: msg).then((value) {
-        if (value == 'success') {
-           print('Shared successfully');
-        } else {
-           print('error while sharing');
-        }
-      });
-    }catch(e){
-
-    }
-
-  }
-
   // open article in partner webview in native code
    void _openArticleDeeplinkInNative(String deeplink) {
     Map<String,dynamic> infomation = Map();
     infomation['deeplink'] = deeplink;
     try {
       platfrom.invokeMethod('openArticle', infomation);
-
     } catch (e) {
     }
   }
@@ -196,7 +163,7 @@ class _DHNewsContainerState extends State<DHNewsContainer> {
     Map<String,dynamic> infomation = Map();
     infomation['response'] = response;
     infomation['b64Image'] = base64ImageString;
-    infomation['shareUrl'] = shareUrl;
+    infomation['shareUrl'] = "https://m.snapdeal.com/home?viewInApp=true&renderApp=true&plink=1&purl=$shareUrl";
     infomation['title'] = title;
     try {
       platfrom.invokeMethod('shareArticle', infomation);
