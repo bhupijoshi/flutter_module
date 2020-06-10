@@ -5,13 +5,13 @@
  * @modify date 2020-05-28 13:09:53
  * @desc [Tab controller]
  */
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../models/dh_channels.dart';
 import '../requests/dh_requests/dh_channels_request.dart';
 import './dh_news_container.dart';
 import '../models/dh_news_constant.dart';
 import 'package:flutter/services.dart';
-
 
 class DHNewsTabbarController extends StatefulWidget {
   @override
@@ -82,21 +82,20 @@ class _DHNewsTabbarControllerState extends State<DHNewsTabbarController> {
           )
         : Scaffold(
             body: Center(
-              child: Text(
-                'Loading....',
+              child: CupertinoActivityIndicator(
+                animating: true,
               ),
             ),
           );
   }
 
-  Future<String> _getNewsCxeData() async{
-     String value;
+  Future<String> _getNewsCxeData() async {
+    String value;
     try {
       value = await platfrom.invokeMethod('getNewsCxe');
     } catch (e) {
       print(e);
     }
     return value;
-
   }
 }

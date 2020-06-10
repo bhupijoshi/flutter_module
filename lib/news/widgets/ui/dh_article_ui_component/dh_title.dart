@@ -10,7 +10,8 @@ import '../../../models/dh_news_constant.dart';
 
 class DHTitle extends StatelessWidget {
   final String titleText;
-  DHTitle({@required this.titleText});
+  final int maxLine;
+  DHTitle({@required this.titleText, this.maxLine =2});
   @override
   Widget build(BuildContext context) {
     return Text(
@@ -20,7 +21,7 @@ class DHTitle extends StatelessWidget {
         fontSize: 18.0,
         fontWeight: FontWeight.bold,
       ),
-      maxLines: 2,
+      maxLines: maxLine,
       textAlign: TextAlign.left,
     );
   }

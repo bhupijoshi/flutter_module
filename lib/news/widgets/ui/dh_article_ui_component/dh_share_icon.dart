@@ -18,11 +18,17 @@ class DHShareIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 16.0,
-      width: 14.0,
-      child: GestureDetector(
-        onTap: _perfromShare,
-        child: Image.asset(iconName),
+      height: 30,
+      width: 30.0,
+      child: Center(
+        child: GestureDetector(
+          onTap: _perfromShare,
+          child: Container(
+            height: 16,
+            width: 14,
+            child: Image.asset(iconName),
+          ),
+        ),
       ),
     );
   }

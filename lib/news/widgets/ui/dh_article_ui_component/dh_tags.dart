@@ -20,7 +20,7 @@ class DHTags extends StatelessWidget {
         color: sourceTextColor,
         fontSize: 15.0,
       ),
-      maxLines: 2,
+      maxLines: 1,
       textAlign: TextAlign.left,
     );
   }

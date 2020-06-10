@@ -99,9 +99,9 @@ class _DHNewsContainerState extends State<DHNewsContainer> {
             itemCount: _listOfArticles.length + 1,
           )
         : Center(
-            child: Text(
-              _loadingMessage,
-            ),
+            child: CupertinoActivityIndicator(
+                animating: true,
+              ),
           );
   }
 

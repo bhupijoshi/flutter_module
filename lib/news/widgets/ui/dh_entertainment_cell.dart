@@ -53,7 +53,7 @@ class DHEntertainmentCell extends StatelessWidget {
                     ),
                     DHTitle(titleText: dhArticle.articleTitle),
                     SizedBox(
-                      height: 11.25,
+                      height: 15,
                     ),
                     isThumbnail
                         ? Stack(
@@ -90,7 +90,7 @@ class DHEntertainmentCell extends StatelessWidget {
                             height: 0,
                           ),
                     SizedBox(
-                      height: 12,
+                      height: 18,
                     ),
                     Container(
                       padding: EdgeInsets.only(right: 10),

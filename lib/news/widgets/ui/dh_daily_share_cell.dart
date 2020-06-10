@@ -39,7 +39,7 @@ class DHDailyShareCell extends StatelessWidget {
             onTap: () => _openNewsDetailPage(context),
             child: Container(
               color: Colors.white,
-              height: isThumbnail ? 319 : 134,
+              height: isThumbnail ? 329 : 134,
               padding: EdgeInsets.symmetric(horizontal: 16),
               child: Card(
                 elevation: 0,
@@ -50,7 +50,7 @@ class DHDailyShareCell extends StatelessWidget {
                     SizedBox(
                       height: 15.0,
                     ),
-                    DHTitle(titleText: dailyShareArticle.articleTitle),
+                    DHTitle(titleText: dailyShareArticle.articleTitle,maxLine: 1,),
                     SizedBox(
                       height: 11.25,
                     ),
@@ -62,7 +62,7 @@ class DHDailyShareCell extends StatelessWidget {
                             height: 0,
                           ),
                     SizedBox(
-                      height: 11.25,
+                      height: 15,
                     ),
                     isThumbnail
                         ? DHThumbnail(
@@ -73,7 +73,7 @@ class DHDailyShareCell extends StatelessWidget {
                             height: 0,
                           ),
                     SizedBox(
-                      height: 12,
+                      height: 18,
                     ),
                     Container(
                       padding: EdgeInsets.only(right: 10),
