@@ -133,18 +133,8 @@ class _DHNewsContainerState extends State<DHNewsContainer> {
   }
 
   void _shareAction(String imageUrl, String msg, String shareUrl) async {
-    String b64Image = '';
-    String aResponse = '';
-    if (imageUrl != null && imageUrl.length > 0) {
-      var response = await http.get(
-        imageUrl);
-      
-    b64Image =
-        'data:image/jpeg;base64,' + base64Encode(response.bodyBytes);
-    aResponse = response.body;
-    }
-    // _shareToWhatsApp(b64Image,msg);
-    _sendShareInfoToNative(aResponse, b64Image, msg, shareUrl);
+
+    _sendShareInfoToNative(imageUrl, msg, shareUrl);
   }
 
   // open article in partner webview in native code
@@ -159,12 +149,14 @@ class _DHNewsContainerState extends State<DHNewsContainer> {
 
   // send share info to native app
 
-  void _sendShareInfoToNative(String response, String base64ImageString, String title, String shareUrl) {
+  void _sendShareInfoToNative( String imageUrl, String title, String shareUrl) {
     Map<String,dynamic> infomation = Map();
-    infomation['response'] = response;
-    infomation['b64Image'] = base64ImageString;
-    infomation['shareUrl'] = "https://m.snapdeal.com/home?viewInApp=true&renderApp=true&plink=1&purl=$shareUrl";
     infomation['title'] = title;
+    infomation['imgUrl'] = imageUrl;
+    infomation['shareUrl'] = shareUrl;
+
+    infomation['shareData'] = title+" "+"https://m.snapdeal.com/home?viewInApp=true&renderApp=true&plink=1&purl="+shareUrl;
+
     try {
       platfrom.invokeMethod('shareArticle', infomation);
     } catch (e) {
