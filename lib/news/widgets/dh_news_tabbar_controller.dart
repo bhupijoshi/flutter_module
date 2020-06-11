@@ -89,13 +89,13 @@ class _DHNewsTabbarControllerState extends State<DHNewsTabbarController> {
           );
   }
 
-  Future<String> _getNewsCxeData() async {
-    String value;
+  Future<Map<Object,Object>> _getNewsCxeData() async {
+    Map<Object,Object> cxeMap = Map();
     try {
-      value = await platfrom.invokeMethod('getNewsCxe');
+      cxeMap = await platfrom.invokeMethod('getNewsCxe');
     } catch (e) {
       print(e);
     }
-    return value;
+    return cxeMap;
   }
 }
