@@ -9,12 +9,14 @@ class DHChannels {
   final int channelCount;
   final String nextPageUrl;
   final int pageNumber;
-  final List<DHChannel> allChannels;
+  int initialSelected;
+  List<DHChannel> allChannels;
   DHChannels({
     this.channelCount,
     this.nextPageUrl,
     this.pageNumber,
     this.allChannels,
+    this.initialSelected = 0,
   });
 
   factory DHChannels.fromJson(Map<String, Object> channelJson){
@@ -32,7 +34,8 @@ class DHChannels {
     List<DHChannel> channelList = list.map((channelJson){
       return DHChannel.fromJson(channelJson);
     }).toList();
-    return channelList.sublist(0,3);
+    // return channelList.sublist(0,3);
+    return channelList;
   }
 }
 
@@ -42,12 +45,14 @@ class DHChannel {
   final String contentUrl;
   final String deepLinkUrl;
   final String channelType;
+  bool selectedState;
   DHChannel({
     this.channelId,
     this.channelName,
     this.contentUrl,
     this.deepLinkUrl,
     this.channelType,
+    this.selectedState=false,
   });
 
   factory DHChannel.fromJson(Map<String, Object> json) {

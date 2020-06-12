@@ -13,4 +13,10 @@ final String apiKeyValue = 'grBY9UjGjFgpXpFyOnuwNPMPXmxp+y5/HjxMrgFixu8=';
 final String secretKey = 'xurDYa6wyY+zw3NzBh/YfQ==';
 final String baseUrl = 'https://feed.dailyhunt.in/api/v2/syndication';
 
+final String headlineID = '1';
+final String entertainmentID = '4178';
+final String dailyShareID = '4324';
+final bool   runModuleIndependent = false;
+
+
 

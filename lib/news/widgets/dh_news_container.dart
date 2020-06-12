@@ -8,6 +8,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_in_sd/news/models/dh_news_constant.dart';
 import '../requests/dh_requests/dh_article_tracking_request.dart';
 import './ui/dh_daily_share_cell.dart';
 import './ui/dh_entertainment_cell.dart';
@@ -109,13 +110,13 @@ class _DHNewsContainerState extends State<DHNewsContainer> {
       anArticle.isVisibleOnScreen = true;
       _visibleArticles.add(anArticle);
     }
-    if (widget.aChannel.channelId == '1') {
+    if (widget.aChannel.channelId == headlineID) {
       return DHHeadlineCell(
         article: anArticle,
         shareFunction: _shareAction,
         deeplinkFunction: _openArticleDeeplinkInNative,
       );
-    } else if (widget.aChannel.channelId == '2') {
+    } else if (widget.aChannel.channelId == entertainmentID) {
       return DHEntertainmentCell(
         dhArticle: anArticle,
         shareFunction: _shareAction,
