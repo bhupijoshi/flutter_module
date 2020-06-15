@@ -28,9 +28,9 @@ class DHNewsContainer extends StatefulWidget {
 }
 
 class _DHNewsContainerState extends State<DHNewsContainer> {
-  static const platfrom = const MethodChannel('com.adlok/info');
+  static const platform = const MethodChannel('com.snapdeal.main/flutter/bridge/channel');
 
-  String _loadingMessage = "Laoding content...";
+  String _loadingMessage = "Loading content...";
   ScrollController _scrollController = ScrollController();
   List<DHArticle> _listOfArticles = [];
   String _urlForContent = '';
@@ -138,10 +138,11 @@ class _DHNewsContainerState extends State<DHNewsContainer> {
 
   // open article in partner webview in native code
    void _openArticleDeeplinkInNative(String deeplink) {
-    Map<String,dynamic> infomation = Map();
-    infomation['deeplink'] = deeplink;
+    Map<String,dynamic> data = Map();
+    data['url'] = deeplink+'&renderApp=true&plink=1';
+    data['action'] = 'deeplink';
     try {
-      platfrom.invokeMethod('openArticle', infomation);
+      platform.invokeMethod('clickAction', data);
     } catch (e) {
     }
   }
@@ -149,15 +150,16 @@ class _DHNewsContainerState extends State<DHNewsContainer> {
   // send share info to native app
 
   void _sendShareInfoToNative( String imageUrl, String title, String shareUrl) {
-    Map<String,dynamic> infomation = Map();
-    infomation['title'] = title;
-    infomation['imgUrl'] = imageUrl;
-    infomation['shareUrl'] = shareUrl;
+    Map<String,dynamic> data = Map();
+    data['title'] = title;
+    data['imgUrl'] = imageUrl;
+    data['shareUrl'] = shareUrl;
 
-    infomation['shareData'] = title+" "+"https://m.snapdeal.com/home?viewInApp=true&renderApp=true&plink=1&purl="+shareUrl;
+    data['shareData'] = title+" "+"https://m.snapdeal.com/home?viewInApp=true&renderApp=true&plink=1&purl="+shareUrl;
+    data['action'] = 'share';
 
     try {
-      platfrom.invokeMethod('shareArticle', infomation);
+      platform.invokeMethod('clickAction', data);
     } catch (e) {
     }
 

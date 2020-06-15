@@ -21,46 +21,54 @@ class DHNewsTabbarController extends StatefulWidget {
 }
 
 class _DHNewsTabbarControllerState extends State<DHNewsTabbarController> {
-  Map<String, Object> _cxeData;
+  Map<String, Object> _channelsData;
   DHChannels _channels;
-  static const platfrom = const MethodChannel('com.adlok/info');
+
+  static const platform = const MethodChannel('com.snapdeal.main/flutter/bridge/channel');
 
   @override
   void initState() {
     super.initState();
-    _getNewsCxeData().then((value) {
-      _cxeData = value;
+    _getHostAppNewsData().then((value) {
+      _channelsData = value;
       _fetchAvailableChannels();
     });
   }
 
   void _fetchAvailableChannels() {
     DHChannelsRequest().fetchAvailableChannels().then((DHChannels channels) {
-      if (_cxeData != null &&
-          _cxeData.containsKey('channels')) {
-        List<dynamic> cxeChannelsData = _cxeData['channels'];
+      if (_channelsData != null && _channelsData.containsKey('rows')) {
+        DHChannels _channelsFilter = DHChannels.fromJson(_channelsData);
         List<DHChannel> _list = [];
-        cxeChannelsData.forEach((element) {
+        _channelsFilter.allChannels.forEach((channel) {
           for (var i = 0; i < channels.allChannels.length; i++) {
             var aChannel = channels.allChannels[i];
-            if (element.containsKey('id') &&
-                element['id'] == aChannel.channelId) {
+            if (channel.channelId == aChannel
+                .channelId) { //If Channel id match and Name available in Host App data
+              if (channel.channelName != null &&
+                  channel.channelName.length > 0) {
+                aChannel.channelName = channel.channelName;
+              }
               _list.add(aChannel);
             }
           }
         });
-        int selectedTab = _cxeData['selectedChannel'];
-        var aChannel;
-        if ( 0 < selectedTab && selectedTab <= _list.length) {
-          aChannel = _list[selectedTab-1];
-          aChannel.selectedState = true;
-          channels.initialSelected = selectedTab-1;
-        } else {
-          aChannel = _list[0];
-          aChannel.selectedState = true;
+
+        if(_list.length > 0) { //do not update list, Fallback to original, if list is empty after filter so that page is not empty
+          int selectedTab = _channelsData['selectedChannel'];
+          var aChannel;
+          if (0 < selectedTab && selectedTab <= _list.length) {
+            aChannel = _list[selectedTab - 1];
+            aChannel.selectedState = true;
+            channels.initialSelected = selectedTab - 1;
+          } else {
+            aChannel = _list[0];
+            aChannel.selectedState = true;
+          }
+          channels.allChannels = _list;
         }
-        channels.allChannels = _list;
       }
+
       if (!mounted) return;
       setState(() {
         _channels = channels;
@@ -120,23 +128,23 @@ class _DHNewsTabbarControllerState extends State<DHNewsTabbarController> {
           );
   }
 
-  Future<Map<String, Object>> _getNewsCxeData() async {
-    if (runModuleIndependent) {
+  Future<Map<String, Object>> _getHostAppNewsData() async {
+    if (runModuleIndependent) {//Test Data
       String jsonString =
-          '{"channelsData":{"channels":[{"name":"Headline","id":"1"},{"name":"Entertainment","id":"4178"},{"name":"Daily Share","id":"4324"}],"selectedChannel":2}}';
-      Map<String, Object> cxeMap = json.decode(jsonString);
-      return cxeMap['channelsData'];
+          '{"channelsData":{"rows":[{"name":"Headline","id":"1"},{"name":"Entertainment","id":"4178"},{"name":"Daily Share","id":"4324"}],"selectedChannel":2}}';
+      Map<String, Object> channelsData = json.decode(jsonString);
+      return channelsData['channelsData'];
     } else {
       String jsonString;
-      Map<String, Object> cxeMap;
+      Map<String, Object> channelsData;
       try {
-        jsonString = await platfrom.invokeMethod('getNewsCxe');
+        jsonString = await platform.invokeMethod('getHostAppData');
       } catch (e) {
         print(e);
-      } 
-      cxeMap = jsonDecode(jsonString);
-      if (cxeMap != null && cxeMap.containsKey('channelsData')) {
-        return cxeMap['channelsData'];
+      }
+      channelsData = jsonDecode(jsonString);
+      if (channelsData != null && channelsData.containsKey('channelsData')) {
+        return channelsData['channelsData'];
       } else {
         return Map();
       }

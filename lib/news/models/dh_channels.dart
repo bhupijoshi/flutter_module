@@ -41,7 +41,7 @@ class DHChannels {
 
 class DHChannel {
   final String channelId;
-  final String channelName;
+  String channelName;
   final String contentUrl;
   final String deepLinkUrl;
   final String channelType;

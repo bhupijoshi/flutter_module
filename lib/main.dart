@@ -35,7 +35,7 @@ class BannerAppPage extends StatefulWidget {
 
 class _BannerAppPageState extends State<BannerAppPage> {
   String _bannerUrl = '';
-  static const platfrom = const MethodChannel('com.adlok/info');
+  static const platform = const MethodChannel('com.snapdeal.main/flutter/bridge/channel');
 
   _BannerAppPageState() {
     _getInformation().then((String url) {
@@ -47,7 +47,7 @@ class _BannerAppPageState extends State<BannerAppPage> {
 
   void _imageTapped() {
     print('image tapped.');
-    platfrom.invokeMethod('imageTapped');
+    platform.invokeMethod('imageTapped');
   }
 
   @override
@@ -83,7 +83,7 @@ class _BannerAppPageState extends State<BannerAppPage> {
   Future<String> _getInformation() async {
     String value;
     try {
-      value = await platfrom.invokeMethod('getInformation');
+      value = await platform.invokeMethod('getInformation');
     } catch (e) {
       print(e);
     }
