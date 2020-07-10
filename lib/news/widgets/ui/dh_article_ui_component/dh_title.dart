@@ -20,6 +20,7 @@ class DHTitle extends StatelessWidget {
         color: textColor,
         fontSize: 18.0,
         fontWeight: FontWeight.bold,
+        fontFamily: 'Roboto',
       ),
       maxLines: maxLine,
       textAlign: TextAlign.left,

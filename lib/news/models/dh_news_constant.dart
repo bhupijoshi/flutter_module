@@ -16,7 +16,7 @@ final String baseUrl = 'https://feed.dailyhunt.in/api/v2/syndication';
 final String headlineID = '1';
 final String entertainmentID = '4178';
 final String dailyShareID = '4324';
-final bool   runModuleIndependent = false;
+final bool   runModuleIndependent = true;
 
 
 
